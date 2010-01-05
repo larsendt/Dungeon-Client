@@ -38,7 +38,7 @@ MKDIR         = mkdir -p
 
 ####### Output directory
 
-OBJECTS_DIR   = ./
+OBJECTS_DIR   = ./obj
 
 ####### Files
 
@@ -107,9 +107,9 @@ DIST          = /usr/share/qt4/mkspecs/common/g++.conf \
 		/usr/share/qt4/mkspecs/features/lex.prf \
 		/usr/share/qt4/mkspecs/features/include_source_dir.prf \
 		dclient2.pro
-QMAKE_TARGET  = dclient2
+QMAKE_TARGET  = client
 DESTDIR       = 
-TARGET        = dclient2
+TARGET        = client
 
 first: all
 ####### Implicit rules
