@@ -2,9 +2,16 @@
 #define GEAR_H
 
 #include <QWidget>
-#include <QListWidget>
+#include <QLabel>
+#include <QLineEdit>
 #include <QPushButton>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <QGridLayout>
+#include <QDataStream>
+#include <QMessageBox>
+#include <QHash>
+#include <QByteArray>
 
 class Gear : public QWidget
 {
@@ -12,14 +19,16 @@ class Gear : public QWidget
 	
 	public:
 		Gear(QWidget *parent = 0);
+		QByteArray* save();
+		void load(QByteArray *parent_byte);
 		
 	private slots:
 	
 	private:
-		//for whatever reason, variables declared here cause a segfault, 
-		//currently they are residing as globals in the .cpp
-		
-	
+		QHash <QString, QString> hash;
+		QLabel *gear_label;
+
 };
+
 
 #endif
