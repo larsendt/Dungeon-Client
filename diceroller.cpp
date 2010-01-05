@@ -85,7 +85,7 @@ void Diceroller::roll()
   	srand(time(NULL));
   	
   	xdx->setText((multiplier->text())+"d"+(die_size->text()));
-  	
+  	output->append("Roll: "+(multiplier->text())+"d"+(die_size->text()));
   	
   	for(int i = 0; i < mult; i++)
   	{ 
@@ -95,9 +95,35 @@ void Diceroller::roll()
   		output->append(QString::number(die));
   	}
   	total->setText(QString::number(totalint));
+  	output->append("Total: "+QString::number(totalint));
+  	output->append("");
   	totalint = 0;
-  	output->append("***");
   		
+}
+
+QByteArray* Diceroller::save()
+{
+	QByteArray *hasharray = new QByteArray;
+	QDataStream out(hasharray, QIODevice::WriteOnly);
+	
+	hash["output"] = output->toPlainText();
+	hash["notes"] = notes->toPlainText();
+	
+	out.setVersion(QDataStream::Qt_4_5);
+    out << hash;
+    
+    return hasharray;
+
+}
+
+void Diceroller::load(QByteArray *parent_byte)
+{
+	QDataStream in(parent_byte, QIODevice::ReadOnly);
+	in >> hash;
+    
+    output->setText(hash["output"]);
+    notes->setText(hash["notes"]);
+
 }
 
 void Diceroller::clear()

@@ -7,6 +7,9 @@
 #include <QLabel>
 #include <QTextBrowser>
 #include <QPushButton>
+#include <QHash>
+#include <QDataStream>
+#include <QByteArray>
 
 class Diceroller : public QWidget
 {
@@ -14,6 +17,8 @@ class Diceroller : public QWidget
 	
   public:
     Diceroller(QWidget *parent = 0);
+    QByteArray* save();
+    void load(QByteArray *parent_byte);
   
   private slots:
   	void roll();
@@ -22,6 +27,7 @@ class Diceroller : public QWidget
 
   private:
   	int totalint;
+  	QHash <QString, QString> hash;
   	QLabel *die_size_label;
   	QLabel *multiplier_label;
   	QLabel *you_rolled;

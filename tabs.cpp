@@ -75,6 +75,7 @@ void TabWidget::saveAll()
     	    hash["char_stats"] = *char_stats_widget->save();
 			hash["char_widget"] = *char_widget->save();
 			hash["armor"] = *armor->save();
+			hash["dice"] = *dice_widget->save();
 			
 			out.setVersion(QDataStream::Qt_4_5);
     	    out << hash;
@@ -166,6 +167,7 @@ void TabWidget::loadAll()
     	char_stats_widget->load(&hash["char_stats"]);
 		char_widget->load(&hash["char_widget"]);
 		armor->load(&hash["armor"]);
+		dice_widget->load(&hash["dice"]);
     	
     }   
     already_saved = true;

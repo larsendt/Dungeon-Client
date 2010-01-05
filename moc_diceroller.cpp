@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'diceroller.h'
 **
-** Created: Mon Dec 28 16:43:24 2009
+** Created: Tue Jan 5 11:07:45 2010
 **      by: The Qt Meta Object Compiler version 61 (Qt 4.5.2)
 **
 ** WARNING! All changes made in this file will be lost!
