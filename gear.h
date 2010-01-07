@@ -12,6 +12,9 @@
 #include <QMessageBox>
 #include <QHash>
 #include <QByteArray>
+#include <QTableWidget>
+#include <QTableWidgetItem>
+
 
 class Gear : public QWidget
 {
@@ -23,10 +26,25 @@ class Gear : public QWidget
 		void load(QByteArray *parent_byte);
 		
 	private slots:
+		void add();
+		void remove();
+		void edit();
+		void move_up();
+		void move_down();
 	
 	private:
 		QHash <QString, QString> hash;
-		QLabel *gear_label;
+		int num_items;
+		
+		QPushButton *add_button;
+		QPushButton *remove_button;
+		QPushButton *edit_button;
+		QPushButton *up_button;
+		QPushButton *down_button;
+		
+		QTableWidget *table;
+		
+		
 
 };
 

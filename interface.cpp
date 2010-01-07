@@ -5,7 +5,7 @@
 
 /*
 this is the backup info for compile.sh
-vvvv0.1.412010.0001
+vvvv0.1.712010.0001
 */
 
 QString DCLIENTVERSION = "0.1.412010";

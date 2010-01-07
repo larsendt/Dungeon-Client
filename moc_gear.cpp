@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'gear.h'
 **
-** Created: Tue Jan 5 11:30:24 2010
+** Created: Thu Jan 7 13:53:45 2010
 **      by: The Qt Meta Object Compiler version 61 (Qt 4.5.2)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,16 +23,24 @@ static const uint qt_meta_data_Gear[] = {
        2,       // revision
        0,       // classname
        0,    0, // classinfo
-       0,    0, // methods
+       5,   12, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
+
+ // slots: signature, parameters, type, tag, flags
+       6,    5,    5,    5, 0x08,
+      12,    5,    5,    5, 0x08,
+      21,    5,    5,    5, 0x08,
+      28,    5,    5,    5, 0x08,
+      38,    5,    5,    5, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_Gear[] = {
-    "Gear\0"
+    "Gear\0\0add()\0remove()\0edit()\0move_up()\0"
+    "move_down()\0"
 };
 
 const QMetaObject Gear::staticMetaObject = {
@@ -58,6 +66,17 @@ int Gear::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = QWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        switch (_id) {
+        case 0: add(); break;
+        case 1: remove(); break;
+        case 2: edit(); break;
+        case 3: move_up(); break;
+        case 4: move_down(); break;
+        default: ;
+        }
+        _id -= 5;
+    }
     return _id;
 }
 QT_END_MOC_NAMESPACE
