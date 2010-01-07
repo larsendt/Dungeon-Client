@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'gear.h'
 **
-** Created: Thu Jan 7 13:53:45 2010
+** Created: Thu Jan 7 15:07:40 2010
 **      by: The Qt Meta Object Compiler version 61 (Qt 4.5.2)
 **
 ** WARNING! All changes made in this file will be lost!

@@ -14,6 +14,7 @@
 #include <QByteArray>
 #include <QTableWidget>
 #include <QTableWidgetItem>
+#include <QDialog>
 
 
 class Gear : public QWidget

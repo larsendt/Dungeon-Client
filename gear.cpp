@@ -58,13 +58,52 @@ void Gear::add()
 }
 
 void Gear::remove()
-{
+{	
+	int rownum = table->currentRow();
+	//QTableWidgetItem temp_item(*table->item(rownum, 0));
+	QString creme_de_la_text = "Current item";
+	//temp_item.text(); 
+		
+	int button = QMessageBox::question(this, tr("Confirm Removal"), ("Are you sure you want to remove "+creme_de_la_text+"?"), QMessageBox::Yes | QMessageBox::No);
+
+	if (button == QMessageBox::Yes) 
+	{
+		table->removeRow(table->currentRow());
+		num_items--;
+		
+		QMessageBox::information(this, tr("Removal Successful"), (""+creme_de_la_text+" has been removed from your gear list."));
+	}
 
 }
 
 void Gear::edit()
 {
-
+	QDialog *edit_dialog = new QDialog;
+	QVBoxLayout *dialog_l = new QVBoxLayout;
+	QHBoxLayout *fields_l = new QHBoxLayout;		
+		
+	QLabel *dialog_item_label = new QLabel("Item: ");
+	QLabel *dialog_page_label = new QLabel("Page: ");
+	QLabel *dialog_weight_label = new QLabel("Weight: ");
+	
+	QLineEdit *dialog_item = new QLineEdit;
+	QLineEdit *dialog_page = new QLineEdit;
+	QLineEdit *dialog_weight = new QLineEdit;
+	
+	fields_l->addStretch(1);
+	fields_l->addWidget(dialog_item_label);
+	fields_l->addWidget(dialog_item);
+	fields_l->addWidget(dialog_page_label);
+	fields_l->addWidget(dialog_page);
+	fields_l->addWidget(dialog_weight_label);
+	fields_l->addWidget(dialog_weight);
+	fields_l->addStretch(1);
+	
+	dialog_l->addLayout(fields_l);
+	edit_dialog->setLayout(dialog_l);
+	
+	edit_dialog->show();
+	
 }
 
 void Gear::move_up()
