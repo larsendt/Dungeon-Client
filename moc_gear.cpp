@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'gear.h'
 **
-** Created: Thu Jan 7 15:07:40 2010
+** Created: Sat Jan 9 15:11:07 2010
 **      by: The Qt Meta Object Compiler version 61 (Qt 4.5.2)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_Gear[] = {
        2,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   12, // methods
+       4,   12, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -32,14 +32,13 @@ static const uint qt_meta_data_Gear[] = {
        6,    5,    5,    5, 0x08,
       12,    5,    5,    5, 0x08,
       21,    5,    5,    5, 0x08,
-      28,    5,    5,    5, 0x08,
-      38,    5,    5,    5, 0x08,
+      31,    5,    5,    5, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_Gear[] = {
-    "Gear\0\0add()\0remove()\0edit()\0move_up()\0"
+    "Gear\0\0add()\0remove()\0move_up()\0"
     "move_down()\0"
 };
 
@@ -70,12 +69,11 @@ int Gear::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         switch (_id) {
         case 0: add(); break;
         case 1: remove(); break;
-        case 2: edit(); break;
-        case 3: move_up(); break;
-        case 4: move_down(); break;
+        case 2: move_up(); break;
+        case 3: move_down(); break;
         default: ;
         }
-        _id -= 5;
+        _id -= 4;
     }
     return _id;
 }

@@ -84,6 +84,16 @@ void Gear::remove()
 
 void Gear::move_up()
 {
+/*
+	int current_row = table->currentRow();
+	QTableWidgetItem *temp_item;
+	QString current_text;
+	
+	table->insertRow(current_row-1);
+	
+	current_text = 
+	temp_item = new QTableWidgetItem(
+	*/
 
 }
 
@@ -92,4 +102,74 @@ void Gear::move_down()
 
 }
 
+QByteArray* Gear::save()
+{
+	QByteArray *hasharray = new QByteArray;
+	QDataStream out(hasharray, QIODevice::WriteOnly);
+	
+	QTableWidgetItem *temp_item;
+	
+	for(int i = 0; i < num_items; i++)
+	{
+		//the key is stored as thus:
+		//the tens digit is the rownum
+		//the ones digit is the colnum
+		//ex: 1, 2 (second row, third item) is stored under the key 12
+		
+		
+		temp_item = table->item(i, 0);
+		hash[QString::number((i*10)+0)] = temp_item->text();
+		
+		temp_item = table->item(i, 1);
+		hash[QString::number((i*10)+1)] = temp_item->text();
+		
+		temp_item = table->item(i, 2);
+		hash[QString::number((i*10)+2)] = temp_item->text();
+	
+	}
+	
+	hash["num_items"] = QString::number(num_items);
+	
+	out.setVersion(QDataStream::Qt_4_5);
+    out << hash;
+    
+    return hasharray;
 
+}
+
+void Gear::load(QByteArray *parent_byte)
+{
+	QDataStream in(parent_byte, QIODevice::ReadWrite);
+	in >> hash;
+	
+	table->clearContents();
+	table->setRowCount(0);
+	
+	if (hash.isEmpty()) 
+    {
+    	QMessageBox::information(this, tr("No gear was loaded"), tr("The file you are attempting to open contains no saved gear."));
+    } 
+    else 
+    {
+		num_items = hash["num_items"].toInt();
+		
+		table->setRowCount(num_items);
+	
+		QTableWidgetItem *temp_item;
+	
+		for(int i = 0; i < num_items; i++)
+		{
+			temp_item = new QTableWidgetItem(hash[QString::number((i*10)+0)]);
+			table->setItem(i, 0, temp_item);
+			
+			temp_item = new QTableWidgetItem(hash[QString::number((i*10)+1)]);
+			table->setItem(i, 1, temp_item);
+			
+			temp_item = new QTableWidgetItem(hash[QString::number((i*10)+2)]);
+			table->setItem(i, 2, temp_item);
+		
+		}
+	
+	}
+
+}

@@ -16,6 +16,8 @@
 #include <QTableWidgetItem>
 #include <QDialog>
 
+#include <stdlib.h>
+
 
 class Gear : public QWidget
 {
