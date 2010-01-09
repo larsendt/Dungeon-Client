@@ -74,6 +74,8 @@ void Gear::remove()
 		
 	}
 	
+	int current_row = table->currentRow();
+	
 	QTableWidgetItem *temp_item = table->item(table->currentRow(), 0);
 	QString creme_de_la_text = temp_item->text(); 
 		
@@ -86,26 +88,88 @@ void Gear::remove()
 		
 		QMessageBox::information(this, tr("Removal Successful"), (""+creme_de_la_text+" has been removed from your gear list."));
 	}
+	
+	table->setCurrentCell(current_row, 0);
 
 }
 
 void Gear::move_up()
 {
-/*
+
+	if(table->currentItem() == NULL)
+	{
+		QMessageBox::warning(this, tr("Nothing Selected"), tr("Please select an item to move."));
+		return;
+		
+	}
+	
+	if(table->currentRow() == 0)
+	{
+		return;
+	}
+
 	int current_row = table->currentRow();
-	QTableWidgetItem *temp_item;
+	QTableWidgetItem *old_item;
+	QTableWidgetItem *new_item;
 	QString current_text;
 	
 	table->insertRow(current_row-1);
 	
-	current_text = 
-	temp_item = new QTableWidgetItem(
-	*/
-
+	current_row++;
+	
+	old_item = table->item(current_row, 0);
+	new_item = new QTableWidgetItem(old_item->text());
+	table->setItem(current_row-2, 0, new_item);
+	
+	old_item = table->item(current_row, 1);
+	new_item = new QTableWidgetItem(old_item->text());
+	table->setItem(current_row-2, 1, new_item);
+	
+	old_item = table->item(current_row, 2);
+	new_item = new QTableWidgetItem(old_item->text());
+	table->setItem(current_row-2, 2, new_item);
+	
+	table->removeRow(current_row);
+	table->setCurrentCell(current_row-2, 0);
+	
 }
 
 void Gear::move_down()
 {
+
+	if(table->currentItem() == NULL)
+	{
+		QMessageBox::warning(this, tr("Nothing Selected"), tr("Please select an item to move."));
+		return;
+		
+	}
+	
+	if(table->currentRow() == num_items-1)
+	{
+		return;
+	}
+
+	int current_row = table->currentRow();
+	QTableWidgetItem *old_item;
+	QTableWidgetItem *new_item;
+	QString current_text;
+	
+	table->insertRow(current_row+2);
+	
+	old_item = table->item(current_row, 0);
+	new_item = new QTableWidgetItem(old_item->text());
+	table->setItem(current_row+2, 0, new_item);
+	
+	old_item = table->item(current_row, 1);
+	new_item = new QTableWidgetItem(old_item->text());
+	table->setItem(current_row+2, 1, new_item);
+	
+	old_item = table->item(current_row, 2);
+	new_item = new QTableWidgetItem(old_item->text());
+	table->setItem(current_row+2, 2, new_item);
+	
+	table->removeRow(current_row);
+	table->setCurrentCell(current_row+1, 0);
 
 }
 
