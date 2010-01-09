@@ -29,7 +29,6 @@ class Gear : public QWidget
 	private slots:
 		void add();
 		void remove();
-		void edit();
 		void move_up();
 		void move_down();
 	
@@ -39,7 +38,6 @@ class Gear : public QWidget
 		
 		QPushButton *add_button;
 		QPushButton *remove_button;
-		QPushButton *edit_button;
 		QPushButton *up_button;
 		QPushButton *down_button;
 		

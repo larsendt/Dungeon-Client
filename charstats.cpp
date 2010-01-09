@@ -591,7 +591,7 @@ void CharStats::fill()
 QByteArray* CharStats::save()
 {
 	QByteArray *hasharray = new QByteArray;
-	QDataStream out(hasharray, QIODevice::ReadWrite);
+	QDataStream out(hasharray, QIODevice::WriteOnly);
     
     /*Add everything to the QMap hash*/
     hash["cur_hp"] = cur_hp->text();
