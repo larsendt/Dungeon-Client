@@ -67,6 +67,13 @@ void Gear::add()
 
 void Gear::remove()
 {	
+	if(table->currentItem() == NULL)
+	{
+		QMessageBox::warning(this, tr("Nothing Selected"), tr("Please select an item to delete."));
+		return;
+		
+	}
+	
 	QTableWidgetItem *temp_item = table->item(table->currentRow(), 0);
 	QString creme_de_la_text = temp_item->text(); 
 		
