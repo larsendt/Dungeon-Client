@@ -16,7 +16,7 @@
 #include <QTableWidgetItem>
 #include <QTabWidget>
 #include <QCheckBox>
-#include <QTextBrowser>
+#include <QListWidget>
 
 class Spells : public QWidget
 {
@@ -24,8 +24,10 @@ class Spells : public QWidget
 	
 	public:
 		Spells(QWidget *parent = 0);
-		
+		void prepare(QString *spell_name, int spell_level);
+				
 	private slots:
+		//void remove();
 	
 	private:
 	
@@ -36,7 +38,7 @@ class SpellList : public QWidget
 	Q_OBJECT
 	
 	public:
-		SpellList(int spell_level);
+		SpellList(Spells *parent = 0, int spell_level = 0);
 		QByteArray* save();
 		void load(QByteArray *parent_byte);
 		
@@ -50,6 +52,8 @@ class SpellList : public QWidget
 	private:
 		QHash <QString, QString> hash;
 		int num_items;
+		
+		Spells *parent_widget;
 		
 		int level;
 		

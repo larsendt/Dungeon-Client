@@ -7,7 +7,7 @@ Spells::Spells(QWidget *parent)
 	QHBoxLayout *button_l = new QHBoxLayout;
 	
 	QTabWidget *tabWidget = new QTabWidget;
-	QTextBrowser *activeSpells = new QTextBrowser;
+	QListWidget *activeSpells = new QListWidget;
 	QLabel *activeLabel = new QLabel("<b>Prepared Spells</b>");
 	QPushButton *remove = new QPushButton("Remove");
 	QPushButton *clear = new QPushButton ("Clear All");
@@ -21,16 +21,16 @@ Spells::Spells(QWidget *parent)
 	active_l->addWidget(activeSpells);
 	active_l->addLayout(button_l);
 	
-	SpellList *level0 = new SpellList(0);
-	SpellList *level1 = new SpellList(1);
-	SpellList *level2 = new SpellList(2);
-	SpellList *level3 = new SpellList(3);
-	SpellList *level4 = new SpellList(4);
-	SpellList *level5 = new SpellList(5);
-	SpellList *level6 = new SpellList(6);
-	SpellList *level7 = new SpellList(7);
-	SpellList *level8 = new SpellList(8);
-	SpellList *level9 = new SpellList(9);
+	SpellList *level0 = new SpellList(this, 0);
+	SpellList *level1 = new SpellList(this, 1);
+	SpellList *level2 = new SpellList(this, 2);
+	SpellList *level3 = new SpellList(this, 3);
+	SpellList *level4 = new SpellList(this, 4);
+	SpellList *level5 = new SpellList(this, 5);
+	SpellList *level6 = new SpellList(this, 6);
+	SpellList *level7 = new SpellList(this, 7);
+	SpellList *level8 = new SpellList(this, 8);
+	SpellList *level9 = new SpellList(this, 9);
 	
 	tabWidget->addTab(level0, tr("0th"));
 	tabWidget->addTab(level1, tr("1st"));
@@ -56,11 +56,13 @@ Spells::Spells(QWidget *parent)
 /*            SpellList               */
 /**************************************/
 
-SpellList::SpellList(int spell_level)
+SpellList::SpellList(Spells *parent, int spell_level)
 {
 	level = spell_level;
 	QGridLayout *layout = new QGridLayout;
 	QVBoxLayout *button_l = new QVBoxLayout;
+	
+	parent_widget = parent;
 	
 	add_button = new QPushButton("Add Spell");
 	remove_button = new QPushButton("Remove Spell");
@@ -209,6 +211,11 @@ void SpellList::move_down()
 
 void SpellList::prepare()
 {
+	QString *spell_name = new QString("Fireball!");
+	int spell_level = 0;
+	
+	
+	parent_widget->prepare(spell_name, spell_level);
 
 
 }

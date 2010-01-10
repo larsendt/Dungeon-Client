@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'tabs.h'
 **
-** Created: Sun Jan 10 17:13:22 2010
+** Created: Sun Jan 10 17:40:25 2010
 **      by: The Qt Meta Object Compiler version 61 (Qt 4.5.2)
 **
 ** WARNING! All changes made in this file will be lost!
