@@ -14,8 +14,6 @@ TabWidget::TabWidget(QWidget *parent)
     charprofile_scroll = new QScrollArea;
     QScrollArea *weaponscroll = new QScrollArea;
     QScrollArea *armorscroll = new QScrollArea;
-    QScrollArea *gearscroll = new QScrollArea;
-    QScrollArea *featscroll = new QScrollArea;
     
     dice_widget = new Diceroller;
     char_widget = new CharDescWidget;
@@ -32,8 +30,6 @@ TabWidget::TabWidget(QWidget *parent)
     charprofile_scroll->setWidget(charprofile);
     weaponscroll->setWidget(weapon);
     armorscroll->setWidget(armor);
-    gearscroll->setWidget(gear);
-    featscroll->setWidget(feats);
     
     //tabWidget->addTab(charprofile_scroll, tr("Character Profile"));
     tabWidget->addTab(char_rp, tr("Character Info"));
@@ -41,8 +37,8 @@ TabWidget::TabWidget(QWidget *parent)
     tabWidget->addTab(weaponscroll, tr("Weaponry"));
     tabWidget->addTab(armorscroll, tr("Armor"));
     tabWidget->addTab(spells, tr("Spells"));
-    tabWidget->addTab(gearscroll, tr("Gear"));
-    tabWidget->addTab(featscroll, tr("Feats"));
+    tabWidget->addTab(gear, tr("Gear"));
+    tabWidget->addTab(feats, tr("Feats"));
     tabWidget->addTab(dice_widget, tr("Virtual Dice"));
     
     connect(this, SIGNAL(currentChanged(QWidget*)), SLOT(updateProfile()));
@@ -81,6 +77,7 @@ void TabWidget::saveAll()
 			hash["armor"] = *armor->save();
 			hash["dice"] = *dice_widget->save();
 			hash["gear"] = *gear->save();
+			hash["feats"] = *feats->save();
 			
 			out.setVersion(QDataStream::Qt_4_5);
     	    out << hash;
@@ -174,6 +171,7 @@ void TabWidget::loadAll()
 		armor->load(&hash["armor"]);
 		dice_widget->load(&hash["dice"]);
 		gear->load(&hash["gear"]);
+		feats->load(&hash["feats"]);
     	
     }   
     already_saved = true;

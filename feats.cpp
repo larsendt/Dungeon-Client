@@ -22,9 +22,9 @@ Feats::Feats(QWidget *parent)
 	button_l->addWidget(down_button);
 	button_l->addStretch(1);
 	
-	QTableWidgetItem *col1 = new QTableWidgetItem("Item");
+	QTableWidgetItem *col1 = new QTableWidgetItem("Feat");
 	QTableWidgetItem *col2 = new QTableWidgetItem("Page");
-	QTableWidgetItem *col3 = new QTableWidgetItem("Weight");
+	QTableWidgetItem *col3 = new QTableWidgetItem("Notes");
 	
 	table = new QTableWidget(0, 3);
 	table->setMinimumSize(500, 300);
@@ -32,7 +32,8 @@ Feats::Feats(QWidget *parent)
 	table->setHorizontalHeaderItem(1, col2);
 	table->setHorizontalHeaderItem(2, col3);
 	
-	table->setColumnWidth(0, 220);
+	table->setColumnWidth(0, 150);
+	table->setColumnWidth(2, 200);
 	
 	num_items = 0;
 	
@@ -51,7 +52,7 @@ void Feats::add()
 	
 	QTableWidgetItem *temp_item;
 	
-	temp_item = new QTableWidgetItem("Item");
+	temp_item = new QTableWidgetItem("Feat");
 	//temp_item->setFlags(Qt::ItemIsEnabled);
 	table->setItem(num_items-1, 0, temp_item);
 	
@@ -59,7 +60,7 @@ void Feats::add()
 	//temp_item->setFlags(Qt::ItemIsEnabled);
 	table->setItem(num_items-1, 1, temp_item);
 	
-	temp_item = new QTableWidgetItem("Weight");
+	temp_item = new QTableWidgetItem("Notes");
 	//temp_item->setFlags(Qt::ItemIsTristate);
 	table->setItem(num_items-1, 2, temp_item);
 	
@@ -69,7 +70,7 @@ void Feats::remove()
 {	
 	if(table->currentItem() == NULL)
 	{
-		QMessageBox::warning(this, tr("Nothing Selected"), tr("Please select an item to delete."));
+		QMessageBox::warning(this, tr("Nothing Selected"), tr("Please select a feat to delete."));
 		return;
 		
 	}
@@ -86,7 +87,7 @@ void Feats::remove()
 		table->removeRow(table->currentRow());
 		num_items--;
 		
-		QMessageBox::information(this, tr("Removal Successful"), (""+creme_de_la_text+" has been removed from your Feats list."));
+		QMessageBox::information(this, tr("Removal Successful"), (""+creme_de_la_text+" has been removed from your feats."));
 	}
 	
 	table->setCurrentCell(current_row, 0);
@@ -98,7 +99,7 @@ void Feats::move_up()
 
 	if(table->currentItem() == NULL)
 	{
-		QMessageBox::warning(this, tr("Nothing Selected"), tr("Please select an item to move."));
+		QMessageBox::warning(this, tr("Nothing Selected"), tr("Please select a feat to move."));
 		return;
 		
 	}
@@ -139,7 +140,7 @@ void Feats::move_down()
 
 	if(table->currentItem() == NULL)
 	{
-		QMessageBox::warning(this, tr("Nothing Selected"), tr("Please select an item to move."));
+		QMessageBox::warning(this, tr("Nothing Selected"), tr("Please select a feat to move."));
 		return;
 		
 	}
@@ -218,7 +219,7 @@ void Feats::load(QByteArray *parent_byte)
 	
 	if (hash.isEmpty()) 
     {
-    	QMessageBox::information(this, tr("No Feats was loaded"), tr("The file you are attempting to open contains no saved Feats."));
+    	QMessageBox::information(this, tr("No feats were loaded"), tr("The file you are attempting to open contains no saved feats."));
     } 
     else 
     {
