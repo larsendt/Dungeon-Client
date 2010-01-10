@@ -15,9 +15,6 @@
 #include <QTableWidget>
 #include <QTableWidgetItem>
 
-#include <stdlib.h>
-
-
 class Gear : public QWidget
 {
 	Q_OBJECT
