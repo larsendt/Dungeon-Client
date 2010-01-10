@@ -1,5 +1,5 @@
-#ifndef GEAR_H
-#define GEAR_H
+#ifndef FEATS_H
+#define FEATS_H
 
 #include <QWidget>
 #include <QLabel>
@@ -18,12 +18,12 @@
 #include <stdlib.h>
 
 
-class Gear : public QWidget
+class Feats : public QWidget
 {
 	Q_OBJECT
 	
 	public:
-		Gear(QWidget *parent = 0);
+		Feats(QWidget *parent = 0);
 		QByteArray* save();
 		void load(QByteArray *parent_byte);
 		

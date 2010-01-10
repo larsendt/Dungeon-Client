@@ -15,15 +15,17 @@ TabWidget::TabWidget(QWidget *parent)
     QScrollArea *weaponscroll = new QScrollArea;
     QScrollArea *armorscroll = new QScrollArea;
     QScrollArea *gearscroll = new QScrollArea;
+    QScrollArea *featscroll = new QScrollArea;
     
     dice_widget = new Diceroller;
     char_widget = new CharDescWidget;
     char_stats_widget = new CharStats;
     charprofile = new CharProfile(this, char_widget);
-    weapon = new WeaponList;
+    weapon = new Weapon;
     armor = new Armor;
     spells = new Spells;
     gear = new Gear;
+    feats = new Feats;
     
     char_rp->setWidget(char_widget);
     char_stats->setWidget(char_stats_widget);
@@ -31,6 +33,7 @@ TabWidget::TabWidget(QWidget *parent)
     weaponscroll->setWidget(weapon);
     armorscroll->setWidget(armor);
     gearscroll->setWidget(gear);
+    featscroll->setWidget(feats);
     
     //tabWidget->addTab(charprofile_scroll, tr("Character Profile"));
     tabWidget->addTab(char_rp, tr("Character Info"));
@@ -39,6 +42,7 @@ TabWidget::TabWidget(QWidget *parent)
     tabWidget->addTab(armorscroll, tr("Armor"));
     tabWidget->addTab(spells, tr("Spells"));
     tabWidget->addTab(gearscroll, tr("Gear"));
+    tabWidget->addTab(featscroll, tr("Feats"));
     tabWidget->addTab(dice_widget, tr("Virtual Dice"));
     
     connect(this, SIGNAL(currentChanged(QWidget*)), SLOT(updateProfile()));

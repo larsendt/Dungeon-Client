@@ -5,10 +5,11 @@
 #include "diceroller.h"
 #include "charstats.h"
 #include "charprofile.h"
-#include "weaponlist.h"
+#include "weapon.h"
 #include "armor.h"
 #include "spells.h"
 #include "gear.h"
+#include "feats.h"
 
 #include <QWidget>
 #include <QScrollArea>
@@ -46,10 +47,11 @@ private:
     Diceroller *dice_widget;
     CharStats *char_stats_widget;
     CharProfile *charprofile;
-    WeaponList *weapon;
+    Weapon *weapon;
     Armor *armor;
     Spells *spells;
     Gear *gear;
+    Feats *feats;
     
     
 };
