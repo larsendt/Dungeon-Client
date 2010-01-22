@@ -45,10 +45,18 @@ Spells::Spells(QWidget *parent)
 	
 	tabWidget->setMaximumWidth(500);
 	
+	connect(activeSpells, SIGNAL(prepared()), slot(prepare_spell()));
+	
 	layout->addWidget(tabWidget);
 	layout->addLayout(active_l);
 	
 	setLayout(layout);
+
+}
+
+void SpellList::prepare()
+{
+	level0->getPrepared();
 
 }
 
@@ -214,9 +222,7 @@ void SpellList::prepare()
 	QString *spell_name = new QString("Fireball!");
 	int spell_level = 0;
 	
-	
-	parent_widget->prepare(spell_name, spell_level);
-
+	emit prepared();
 
 }
 

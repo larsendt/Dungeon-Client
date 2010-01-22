@@ -28,6 +28,7 @@ class Spells : public QWidget
 				
 	private slots:
 		//void remove();
+		void prepare();
 	
 	private:
 	
@@ -41,6 +42,7 @@ class SpellList : public QWidget
 		SpellList(Spells *parent = 0, int spell_level = 0);
 		QByteArray* save();
 		void load(QByteArray *parent_byte);
+		QString *get_prepared();
 		
 	private slots:
 		void add();
@@ -48,6 +50,9 @@ class SpellList : public QWidget
 		void move_up();
 		void move_down();
 		void prepare();
+		
+	signals:
+		void prepared();
 	
 	private:
 		QHash <QString, QString> hash;
