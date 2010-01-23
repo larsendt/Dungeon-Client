@@ -18,58 +18,66 @@
 #include <QCheckBox>
 #include <QListWidget>
 
+class SpellList : public QWidget
+{
+	Q_OBJECT
+	
+	public:
+		SpellList(QWidget *parent = 0, int spell_level = 0);
+		QByteArray* save();
+		void load(QByteArray *parent_byte);
+		void add();
+		void remove();
+		void move_up();
+		void move_down();
+		QString prepare();
+		
+	private slots:
+	
+	private:
+		QHash <QString, QString> hash;
+		int num_items;
+		
+		int level;
+		
+		QTableWidget *table;	
+};
+
 class Spells : public QWidget
 {
 	Q_OBJECT
 	
 	public:
 		Spells(QWidget *parent = 0);
-		void prepare(QString *spell_name, int spell_level);
 				
-	private slots:
-		//void remove();
-		void prepare();
-	
-	private:
-	
-};
-
-class SpellList : public QWidget
-{
-	Q_OBJECT
-	
-	public:
-		SpellList(Spells *parent = 0, int spell_level = 0);
-		QByteArray* save();
-		void load(QByteArray *parent_byte);
-		QString *get_prepared();
-		
 	private slots:
 		void add();
 		void remove();
 		void move_up();
 		void move_down();
 		void prepare();
-		
-	signals:
-		void prepared();
+		void put_prepared_spell(QString spell);
+		void remove_prepared();
+		void clear_prepared();
 	
 	private:
-		QHash <QString, QString> hash;
-		int num_items;
-		
-		Spells *parent_widget;
-		
-		int level;
-		
 		QPushButton *add_button;
 		QPushButton *remove_button;
 		QPushButton *up_button;
 		QPushButton *down_button;
 		QPushButton *prepare_button;
-		
-		QTableWidget *table;
-	
+		QTabWidget *tabWidget;
+		QListWidget *activeSpells;
+		SpellList *level0;
+		SpellList *level1;
+		SpellList *level2;
+		SpellList *level3;
+		SpellList *level4;
+		SpellList *level5;
+		SpellList *level6;
+		SpellList *level7;
+		SpellList *level8;
+		SpellList *level9;
 };
 
 

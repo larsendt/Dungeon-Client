@@ -5,15 +5,37 @@ Spells::Spells(QWidget *parent)
 	QHBoxLayout *layout = new QHBoxLayout;
 	QVBoxLayout *active_l = new QVBoxLayout;
 	QHBoxLayout *button_l = new QHBoxLayout;
+	QVBoxLayout *button_l2 = new QVBoxLayout;
 	
-	QTabWidget *tabWidget = new QTabWidget;
-	QListWidget *activeSpells = new QListWidget;
+	add_button = new QPushButton("Add Spell");
+	remove_button = new QPushButton("Remove Spell");
+	up_button = new QPushButton("Move Up");
+	down_button = new QPushButton("Move Down");
+	prepare_button = new QPushButton("Prepare Spell");
+	
+	connect(add_button, SIGNAL(clicked()), SLOT(add()));
+	connect(remove_button, SIGNAL(clicked()), SLOT(remove()));
+	connect(up_button, SIGNAL(clicked()), SLOT(move_up()));
+	connect(down_button, SIGNAL(clicked()), SLOT(move_down()));
+	connect(prepare_button, SIGNAL(clicked()), SLOT(prepare()));
+	
+	button_l2->addWidget(add_button);
+	button_l2->addWidget(remove_button);
+	button_l2->addWidget(up_button);
+	button_l2->addWidget(down_button);
+	button_l2->addWidget(prepare_button);
+	button_l2->addStretch(1);
+		
+	tabWidget = new QTabWidget;
+	activeSpells = new QListWidget;
 	QLabel *activeLabel = new QLabel("<b>Prepared Spells</b>");
-	QPushButton *remove = new QPushButton("Remove");
-	QPushButton *clear = new QPushButton ("Clear All");
+	QPushButton *remove_button = new QPushButton("Remove");
+	QPushButton *clear_button = new QPushButton ("Clear All");
+	connect(remove_button, SIGNAL(clicked()), SLOT(remove_prepared()));
+	connect(clear_button, SIGNAL(clicked()), SLOT(clear_prepared()));
 	
-	button_l->addWidget(remove);
-	button_l->addWidget(clear);
+	button_l->addWidget(remove_button);
+	button_l->addWidget(clear_button);
 	
 	tabWidget->setTabPosition(QTabWidget::West);
 	
@@ -21,16 +43,16 @@ Spells::Spells(QWidget *parent)
 	active_l->addWidget(activeSpells);
 	active_l->addLayout(button_l);
 	
-	SpellList *level0 = new SpellList(this, 0);
-	SpellList *level1 = new SpellList(this, 1);
-	SpellList *level2 = new SpellList(this, 2);
-	SpellList *level3 = new SpellList(this, 3);
-	SpellList *level4 = new SpellList(this, 4);
-	SpellList *level5 = new SpellList(this, 5);
-	SpellList *level6 = new SpellList(this, 6);
-	SpellList *level7 = new SpellList(this, 7);
-	SpellList *level8 = new SpellList(this, 8);
-	SpellList *level9 = new SpellList(this, 9);
+	level0 = new SpellList(this, 0);
+	level1 = new SpellList(this, 1);
+	level2 = new SpellList(this, 2);
+	level3 = new SpellList(this, 3);
+	level4 = new SpellList(this, 4);
+	level5 = new SpellList(this, 5);
+	level6 = new SpellList(this, 6);
+	level7 = new SpellList(this, 7);
+	level8 = new SpellList(this, 8);
+	level9 = new SpellList(this, 9);
 	
 	tabWidget->addTab(level0, tr("0th"));
 	tabWidget->addTab(level1, tr("1st"));
@@ -45,54 +67,236 @@ Spells::Spells(QWidget *parent)
 	
 	tabWidget->setMaximumWidth(500);
 	
-	connect(activeSpells, SIGNAL(prepared()), slot(prepare_spell()));
-	
 	layout->addWidget(tabWidget);
+	layout->addLayout(button_l2);
 	layout->addLayout(active_l);
 	
 	setLayout(layout);
-
 }
 
-void SpellList::prepare()
+void Spells::add()
 {
-	level0->getPrepared();
+	switch(tabWidget->currentIndex())
+	{
+		case 0:
+			level0->add();
+			break;
+		case 1:
+			level1->add();
+			break;
+		case 2:
+			level2->add();
+			break;
+		case 3:
+			level3->add();
+			break;
+		case 4:
+			level4->add();
+			break;
+		case 5:
+			level5->add();
+			break;
+		case 6:
+			level6->add();
+			break;
+		case 7:
+			level7->add();
+			break;
+		case 8:
+			level8->add();
+			break;
+		case 9:
+			level9->add();
+			break;
+		default:
+			QMessageBox::warning(this, "Error", "Funky program error, blort.");
+	}
+}
+	
+void Spells::remove()
+{
+	switch(tabWidget->currentIndex())
+	{
+		case 0:
+			level0->remove();
+			break;
+		case 1:
+			level1->remove();
+			break;
+		case 2:
+			level2->remove();
+			break;
+		case 3:
+			level3->remove();
+			break;
+		case 4:
+			level4->remove();
+			break;
+		case 5:
+			level5->remove();
+			break;
+		case 6:
+			level6->remove();
+			break;
+		case 7:
+			level7->remove();
+			break;
+		case 8:
+			level8->remove();
+			break;
+		case 9:
+			level9->remove();
+			break;
+		default:
+			QMessageBox::warning(this, "Error", "Funky program error, blort.");
+	}
+}
+void Spells::move_up()
+{
+	switch(tabWidget->currentIndex())
+	{
+		case 0:
+			level0->move_up();
+			break;
+		case 1:
+			level1->move_up();
+			break;
+		case 2:
+			level2->move_up();
+			break;
+		case 3:
+			level3->move_up();
+			break;
+		case 4:
+			level4->move_up();
+			break;
+		case 5:
+			level5->move_up();
+			break;
+		case 6:
+			level6->move_up();
+			break;
+		case 7:
+			level7->move_up();
+			break;
+		case 8:
+			level8->move_up();
+			break;
+		case 9:
+			level9->move_up();
+			break;
+		default:
+			QMessageBox::warning(this, "Error", "Funky program error, blort.");
+	}
+}
+
+void Spells::move_down()
+{
+	switch(tabWidget->currentIndex())
+	{
+		case 0:
+			level0->move_down();
+			break;
+		case 1:
+			level1->move_down();
+			break;
+		case 2:
+			level2->move_down();
+			break;
+		case 3:
+			level3->move_down();
+			break;
+		case 4:
+			level4->move_down();
+			break;
+		case 5:
+			level5->move_down();
+			break;
+		case 6:
+			level6->move_down();
+			break;
+		case 7:
+			level7->move_down();
+			break;
+		case 8:
+			level8->move_down();
+			break;
+		case 9:
+			level9->move_down();
+			break;
+		default:
+			QMessageBox::warning(this, "Error", "Funky program error, blort.");
+	}
+}
+
+void Spells::prepare()
+{
+	switch(tabWidget->currentIndex())
+	{
+		case 0:
+			put_prepared_spell(level0->prepare());
+			break;
+		case 1:
+			put_prepared_spell(level1->prepare());
+			break;
+		case 2:
+			put_prepared_spell(level2->prepare());
+			break;
+		case 3:
+			put_prepared_spell(level3->prepare());
+			break;
+		case 4:
+			put_prepared_spell(level4->prepare());
+			break;
+		case 5:
+			put_prepared_spell(level5->prepare());
+			break;
+		case 6:
+			put_prepared_spell(level6->prepare());
+			break;
+		case 7:
+			put_prepared_spell(level7->prepare());
+			break;
+		case 8:
+			put_prepared_spell(level8->prepare());
+			break;
+		case 9:
+			put_prepared_spell(level9->prepare());
+			break;
+		default:
+			QMessageBox::warning(this, "Error", "Funky program error, blort.");
+	}
+	
 
 }
+
+void Spells::put_prepared_spell(QString spell)
+{
+	if(spell != NULL)	
+		activeSpells->addItem(spell);
+}
+
+void Spells::remove_prepared()
+{
+	activeSpells->takeItem(activeSpells->currentRow());	
+}
+
+void Spells::clear_prepared()
+{
+	activeSpells->clear();
+}
+
 
 /**************************************/
 /*            SpellList               */
 /**************************************/
 
-SpellList::SpellList(Spells *parent, int spell_level)
+SpellList::SpellList(QWidget *parent, int spell_level)
 {
 	level = spell_level;
 	QGridLayout *layout = new QGridLayout;
-	QVBoxLayout *button_l = new QVBoxLayout;
-	
-	parent_widget = parent;
-	
-	add_button = new QPushButton("Add Spell");
-	remove_button = new QPushButton("Remove Spell");
-	up_button = new QPushButton("Move Up");
-	down_button = new QPushButton("Move Down");
-	prepare_button = new QPushButton("Prepare Spell");
-	
-	connect(add_button, SIGNAL(clicked()), SLOT(add()));
-	connect(remove_button, SIGNAL(clicked()), SLOT(remove()));
-	connect(up_button, SIGNAL(clicked()), SLOT(move_up()));
-	connect(down_button, SIGNAL(clicked()), SLOT(move_down()));
-	connect(prepare_button, SIGNAL(clicked()), SLOT(prepare()));
-	
-	button_l->addWidget(add_button);
-	button_l->addWidget(remove_button);
-	button_l->addWidget(up_button);
-	button_l->addWidget(down_button);
-	button_l->addWidget(prepare_button);
-	button_l->addStretch(1);
 	
 	QTableWidgetItem *col1 = new QTableWidgetItem("Level "+QString::number(spell_level)+" Spells");
-	
 	
 	table = new QTableWidget(0, 1);
 	table->setMaximumWidth(260);
@@ -103,7 +307,6 @@ SpellList::SpellList(Spells *parent, int spell_level)
 	num_items = 0;
 	
 	layout->addWidget(table, 0, 0, 1, 1, Qt::AlignLeft);
-	layout->addLayout(button_l, 0, 1, 1, 1);
 	
 	setLayout(layout);
 
@@ -217,13 +420,12 @@ void SpellList::move_down()
 
 }
 
-void SpellList::prepare()
+QString SpellList::prepare()
 {
-	QString *spell_name = new QString("Fireball!");
-	int spell_level = 0;
-	
-	emit prepared();
-
+	if(table->currentRow() != -1)	
+		return table->item(table->currentRow(), 0)->text();
+	else
+		return NULL;
 }
 
 QByteArray* SpellList::save()
