@@ -41,7 +41,7 @@ TabWidget::TabWidget(QWidget *parent)
     tabWidget->addTab(feats, tr("Feats"));
     tabWidget->addTab(dice_widget, tr("Virtual Dice"));
     
-    connect(this, SIGNAL(currentChanged(QWidget*)), SLOT(updateProfile()));
+    //connect(this, SIGNAL(currentChanged(QWidget*)), SLOT(updateProfile()));
 	
 	main->addWidget(tabWidget);
 	setLayout(main);
@@ -78,6 +78,7 @@ void TabWidget::saveAll()
 			hash["dice"] = *dice_widget->save();
 			hash["gear"] = *gear->save();
 			hash["feats"] = *feats->save();
+			hash["spells"] = *spells->save();
 			
 			out.setVersion(QDataStream::Qt_4_5);
     	    out << hash;
@@ -172,6 +173,7 @@ void TabWidget::loadAll()
 		dice_widget->load(&hash["dice"]);
 		gear->load(&hash["gear"]);
 		feats->load(&hash["feats"]);
+		spells->load(&hash["spells"]);
     	
     }   
     already_saved = true;

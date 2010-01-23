@@ -49,6 +49,8 @@ class Spells : public QWidget
 	
 	public:
 		Spells(QWidget *parent = 0);
+		QByteArray* save();
+		void load(QByteArray *parent_byte);
 				
 	private slots:
 		void add();
@@ -61,6 +63,7 @@ class Spells : public QWidget
 		void clear_prepared();
 	
 	private:
+		QHash <QString, QByteArray> hash;
 		QPushButton *add_button;
 		QPushButton *remove_button;
 		QPushButton *up_button;

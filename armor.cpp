@@ -16,7 +16,7 @@ Armor::Armor(QWidget *parent)
 	cloud->setToolTip("Cloud");
 	WIDTH = 50;
 	
-	armor_name_label = new QLabel("Armor: ");
+	armor_name_label = new QLabel("<b>Armor:</b> ");
 	armor_name = new QLineEdit;
 	armor_name->setMaximumWidth(300);
 	armor_type_label = new QLabel("Type: ");
@@ -65,7 +65,7 @@ Armor::Armor(QWidget *parent)
 	armor_l->addWidget(zidane, 3, 0, 1, 1);
 	
 	
-	shield_name_label = new QLabel("Shield: ");
+	shield_name_label = new QLabel("<b>Shield:</b> ");
 	shield_name = new QLineEdit;
 	shield_name->setMaximumWidth(300);
 	shield_ac_bonus_label = new QLabel("AC Bonus: ");
@@ -98,7 +98,7 @@ Armor::Armor(QWidget *parent)
 	armor_l->addWidget(shield_special_properties, 6, 4, 1, 1);
 	armor_l->addWidget(squall, 7, 0, 1, 1);
 	
-	pro_item_1_label = new QLabel("Protective Item I: ");
+	pro_item_1_label = new QLabel("<b>Protective Item I:</b> ");
 	pro_item_1 = new QLineEdit;
 	pro_item_1->setMinimumWidth(300);
 	pro_item_1_ac_bonus_label = new QLabel("AC Bonus: ");
@@ -122,7 +122,7 @@ Armor::Armor(QWidget *parent)
 	proItem1_2->addWidget(pro_item_1_special_properties);
 	proItem1_2->addStretch(1);
 	
-	pro_item_2_label = new QLabel("Protective Item II: ");
+	pro_item_2_label = new QLabel("<b>Protective Item II:</b> ");
 	pro_item_2 = new QLineEdit;
 	pro_item_2->setMinimumWidth(300);
 	pro_item_2_ac_bonus_label = new QLabel("AC Bonus: ");

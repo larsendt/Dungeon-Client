@@ -74,6 +74,45 @@ Spells::Spells(QWidget *parent)
 	setLayout(layout);
 }
 
+QByteArray* Spells::save()
+{
+	QByteArray *hasharray = new QByteArray;
+	QDataStream out(hasharray, QIODevice::WriteOnly);
+	
+	hash["level0"] = *level0->save();
+	hash["level1"] = *level1->save();
+	hash["level2"] = *level2->save();
+	hash["level3"] = *level3->save();
+	hash["level4"] = *level4->save();
+	hash["level5"] = *level5->save();
+	hash["level6"] = *level6->save();
+	hash["level7"] = *level7->save();
+	hash["level8"] = *level8->save();
+	hash["level9"] = *level9->save();
+	
+	out.setVersion(QDataStream::Qt_4_5);
+    out << hash;
+    
+    return hasharray;
+}
+
+void Spells::load(QByteArray *parent_byte)
+{
+	QDataStream in(parent_byte, QIODevice::ReadWrite);
+	in >> hash;
+	
+	level0->load(&hash["level0"]);
+	level1->load(&hash["level1"]);
+	level2->load(&hash["level2"]);
+	level3->load(&hash["level3"]);
+	level4->load(&hash["level4"]);
+	level5->load(&hash["level5"]);
+	level6->load(&hash["level6"]);
+	level7->load(&hash["level7"]);
+	level8->load(&hash["level8"]);
+	level9->load(&hash["level9"]);
+}
+
 void Spells::add()
 {
 	switch(tabWidget->currentIndex())
@@ -487,3 +526,4 @@ void SpellList::load(QByteArray *parent_byte)
 	}
 
 }
+
