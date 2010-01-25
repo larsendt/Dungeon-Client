@@ -49,7 +49,6 @@ SOURCES       = armor.cpp \
 		diceroller.cpp \
 		feats.cpp \
 		gear.cpp \
-		gear_item.cpp \
 		interface.cpp \
 		main.cpp \
 		spells.cpp \
@@ -72,7 +71,6 @@ OBJECTS       = armor.o \
 		diceroller.o \
 		feats.o \
 		gear.o \
-		gear_item.o \
 		interface.o \
 		main.o \
 		spells.o \
@@ -188,7 +186,7 @@ qmake:  FORCE
 
 dist: 
 	@$(CHK_DIR_EXISTS) .tmp/client1.0.0 || $(MKDIR) .tmp/client1.0.0 
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/client1.0.0/ && $(COPY_FILE) --parents armor.h chardescwidget.h charprofile.h charstats.h diceroller.h feats.h gear.h interface.h spells.h tabs.h weapon.h .tmp/client1.0.0/ && $(COPY_FILE) --parents armor.cpp chardescwidget.cpp charprofile.cpp charstats.cpp diceroller.cpp feats.cpp gear.cpp gear_item.cpp interface.cpp main.cpp spells.cpp tabs.cpp weapon.cpp .tmp/client1.0.0/ && (cd `dirname .tmp/client1.0.0` && $(TAR) client1.0.0.tar client1.0.0 && $(COMPRESS) client1.0.0.tar) && $(MOVE) `dirname .tmp/client1.0.0`/client1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/client1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/client1.0.0/ && $(COPY_FILE) --parents armor.h chardescwidget.h charprofile.h charstats.h diceroller.h feats.h gear.h interface.h spells.h tabs.h weapon.h .tmp/client1.0.0/ && $(COPY_FILE) --parents armor.cpp chardescwidget.cpp charprofile.cpp charstats.cpp diceroller.cpp feats.cpp gear.cpp interface.cpp main.cpp spells.cpp tabs.cpp weapon.cpp .tmp/client1.0.0/ && (cd `dirname .tmp/client1.0.0` && $(TAR) client1.0.0.tar client1.0.0 && $(COMPRESS) client1.0.0.tar) && $(MOVE) `dirname .tmp/client1.0.0`/client1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/client1.0.0
 
 
 clean:compiler_clean 
@@ -303,9 +301,6 @@ feats.o: feats.cpp feats.h
 
 gear.o: gear.cpp gear.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gear.o gear.cpp
-
-gear_item.o: gear_item.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gear_item.o gear_item.cpp
 
 interface.o: interface.cpp interface.h \
 		tabs.h \

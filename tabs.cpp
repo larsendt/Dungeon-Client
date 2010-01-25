@@ -1,4 +1,23 @@
+/*	
+	Dungeon Client - An application geared towards making D&D character setup and use
+	easier.
+    Copyright (C) 2010 Dane T Larsen 
 
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
+    You can contact the author at dane.t.larsen@gmail.com
+*/
 #include <QtGui>
 
 #include "tabs.h"
@@ -12,7 +31,6 @@ TabWidget::TabWidget(QWidget *parent)
     char_rp = new QScrollArea;
     char_stats = new QScrollArea;
     charprofile_scroll = new QScrollArea;
-    QScrollArea *weaponscroll = new QScrollArea;
     QScrollArea *armorscroll = new QScrollArea;
     
     dice_widget = new Diceroller;
@@ -28,13 +46,12 @@ TabWidget::TabWidget(QWidget *parent)
     char_rp->setWidget(char_widget);
     char_stats->setWidget(char_stats_widget);
     charprofile_scroll->setWidget(charprofile);
-    weaponscroll->setWidget(weapon);
     armorscroll->setWidget(armor);
     
     //tabWidget->addTab(charprofile_scroll, tr("Character Profile"));
     tabWidget->addTab(char_rp, tr("Character Info"));
     tabWidget->addTab(char_stats, tr("Character Stats"));
-    tabWidget->addTab(weaponscroll, tr("Weaponry"));
+    tabWidget->addTab(weapon, tr("Weaponry"));
     tabWidget->addTab(armorscroll, tr("Armor"));
     tabWidget->addTab(spells, tr("Spells"));
     tabWidget->addTab(gear, tr("Gear"));
@@ -79,6 +96,7 @@ void TabWidget::saveAll()
 			hash["gear"] = *gear->save();
 			hash["feats"] = *feats->save();
 			hash["spells"] = *spells->save();
+			hash["weapon"] = *weapon->save();
 			
 			out.setVersion(QDataStream::Qt_4_5);
     	    out << hash;
@@ -174,6 +192,7 @@ void TabWidget::loadAll()
 		gear->load(&hash["gear"]);
 		feats->load(&hash["feats"]);
 		spells->load(&hash["spells"]);
+		weapon->load(&hash["weapon"]);
     	
     }   
     already_saved = true;

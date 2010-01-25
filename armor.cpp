@@ -1,8 +1,29 @@
+/*	
+	Dungeon Client - An application geared towards making D&D character setup and use
+	easier.
+    Copyright (C) 2010 Dane T Larsen 
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
+    You can contact the author at dane.t.larsen@gmail.com
+*/
+
 #include "armor.h"
 
 Armor::Armor(QWidget *parent)
 {
-	QVBoxLayout *layout = new QVBoxLayout;
+	QVBoxLayout *layout = new QVBoxLayout; //main layout of armor widget
 	QGridLayout *armor_l = new QGridLayout;
 	QHBoxLayout *proItem1_1 = new QHBoxLayout;
 	QHBoxLayout *proItem1_2 = new QHBoxLayout;
@@ -158,6 +179,10 @@ Armor::Armor(QWidget *parent)
 
 }
 
+//save() saves the text of all the elements in a QHash, which then is written to a
+//QByteArray with QDataStream.
+//save() then returns a pointer to that QByteArray
+
 QByteArray* Armor::save()
 {
 	QByteArray *hasharray = new QByteArray;
@@ -198,6 +223,8 @@ QByteArray* Armor::save()
 
 
 }
+
+//load() takes an argument of a QByteArray that contains the previously saved QHash
 
 void Armor::load(QByteArray *parent_byte)
 {

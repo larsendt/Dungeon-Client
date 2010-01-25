@@ -1,6 +1,26 @@
+/*	
+	Dungeon Client - An application geared towards making D&D character setup and use
+	easier.
+    Copyright (C) 2010 Dane T Larsen 
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
+    You can contact the author at dane.t.larsen@gmail.com
+*/
 #include "weapon.h"
 
-Weapon::Weapon(QWidget *parent)
+WeaponTab::WeaponTab(QWidget *parent)
     :QWidget(parent)
 {
 	weapon_label = new QLabel("Weapon: ");
@@ -57,4 +77,94 @@ Weapon::Weapon(QWidget *parent)
  
 }
 
+QByteArray* WeaponTab::save()
+{
+	QByteArray *hasharray = new QByteArray;
+	QDataStream out(hasharray, QIODevice::WriteOnly);
+	
+	hash["weapon"] = weapon->text();
+	hash["att_bonus"] = att_bonus->text();
+	hash["damage"] = damage->text();
+	hash["critical"] = critical->text();
+	hash["range"] = range->text();
+	hash["type"] = type->text();
+	hash["notes"] = notes->toPlainText();
+	hash["ammo"] = ammo->text();
+	hash["ammo_num"] = ammo_num->text();
 
+	out.setVersion(QDataStream::Qt_4_5);	
+	out << hash;
+	
+	return hasharray;
+}
+
+void WeaponTab::load(QByteArray *parent_byte)
+{
+	QDataStream in(parent_byte, QIODevice::ReadOnly);
+	
+	in >> hash;
+	
+	weapon->setText(hash["weapon"]);
+	att_bonus->setText(hash["att_bonus"]);
+	damage->setText(hash["damage"]);
+	critical->setText(hash["critical"]);
+	range->setText(hash["range"]);
+	type->setText(hash["type"]);
+ 	notes->setText(hash["notes"]);
+	ammo->setText(hash["ammo"]);
+	ammo_num->setText(hash["ammo_num"]	);
+	
+}
+
+Weapon::Weapon(QWidget *parent)
+{
+	QHBoxLayout *layout = new QHBoxLayout;
+	tabs = new QTabWidget;
+	tabs->setTabPosition(QTabWidget::West);
+	
+	weapon0 = new WeaponTab;
+	weapon1 = new WeaponTab;
+	weapon2 = new WeaponTab;
+	weapon3 = new WeaponTab;
+	weapon4 = new WeaponTab;
+	
+	tabs->addTab(weapon0, "Weapon 1");
+	tabs->addTab(weapon1, "Weapon 2");
+	tabs->addTab(weapon2, "Weapon 3");
+	tabs->addTab(weapon3, "Weapon 4");
+	tabs->addTab(weapon4, "Weapon 5");
+		
+	layout->addWidget(tabs);
+	setLayout(layout);
+
+}
+
+QByteArray* Weapon::save()
+{
+	QByteArray *hasharray = new QByteArray;
+	QDataStream out(hasharray, QIODevice::WriteOnly);
+	
+	hash["weapon0"] = *weapon0->save();	
+	hash["weapon1"] = *weapon1->save();
+	hash["weapon2"] = *weapon2->save();
+	hash["weapon3"] = *weapon3->save();
+	hash["weapon4"] = *weapon4->save();
+
+	out.setVersion(QDataStream::Qt_4_5);
+	out << hash;
+	
+	return hasharray;
+}
+
+void Weapon::load(QByteArray* parent_byte)
+{
+	QDataStream in(parent_byte, QIODevice::ReadOnly);
+	in >> hash;
+	
+	weapon0->load(&hash["weapon0"]);
+	weapon1->load(&hash["weapon1"]);
+	weapon2->load(&hash["weapon2"]);
+	weapon3->load(&hash["weapon3"]);
+	weapon4->load(&hash["weapon4"]);
+	
+}

@@ -1,3 +1,24 @@
+/*	
+	Dungeon Client - An application geared towards making D&D character setup and use
+	easier.
+    Copyright (C) 2010 Dane T Larsen 
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
+    You can contact the author at dane.t.larsen@gmail.com
+*/
+
 #include "feats.h"
 
 
@@ -6,8 +27,8 @@ Feats::Feats(QWidget *parent)
 	QGridLayout *layout = new QGridLayout;
 	QVBoxLayout *button_l = new QVBoxLayout;
 	
-	add_button = new QPushButton("Add Item");
-	remove_button = new QPushButton("Remove Item");
+	add_button = new QPushButton("Add Feat");
+	remove_button = new QPushButton("Remove Feat");
 	up_button = new QPushButton("Move Up");
 	down_button = new QPushButton("Move Down");
 	
@@ -68,6 +89,7 @@ void Feats::add()
 
 void Feats::remove()
 {	
+	//this prevents a segfault. YAY!
 	if(table->currentItem() == NULL)
 	{
 		QMessageBox::warning(this, tr("Nothing Selected"), tr("Please select a feat to delete."));
@@ -75,10 +97,11 @@ void Feats::remove()
 		
 	}
 	
+	//make sure we pull the correct cell, by picking out (currentrow, 0)
 	int current_row = table->currentRow();
 	
 	QTableWidgetItem *temp_item = table->item(table->currentRow(), 0);
-	QString creme_de_la_text = temp_item->text(); 
+	QString creme_de_la_text = temp_item->text(); //contains the selected item's name
 		
 	int button = QMessageBox::question(this, tr("Confirm Removal"), ("Are you sure you want to remove "+creme_de_la_text+"?"), QMessageBox::Yes | QMessageBox::No);
 
@@ -94,6 +117,7 @@ void Feats::remove()
 
 }
 
+//swaps the selected item with the item above
 void Feats::move_up()
 {
 
@@ -135,6 +159,7 @@ void Feats::move_up()
 	
 }
 
+//swaps the selected item with the item below
 void Feats::move_down()
 {
 
