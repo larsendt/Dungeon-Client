@@ -1,6 +1,9 @@
 version
 0.5.25012010
 
+dependencies:
+Qt 4.5
+
 author
 Dane Larsen
 
