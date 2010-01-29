@@ -36,6 +36,7 @@
 #include "spells.h"
 #include "gear.h"
 #include "feats.h"
+#include "skills.h"
 
 #include <QWidget>
 #include <QScrollArea>
@@ -78,6 +79,7 @@ private:
     Spells *spells;
     Gear *gear;
     Feats *feats;
+    Skills *skills;
     
     
 };

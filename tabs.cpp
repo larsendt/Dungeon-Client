@@ -42,6 +42,7 @@ TabWidget::TabWidget(QWidget *parent)
     spells = new Spells;
     gear = new Gear;
     feats = new Feats;
+    skills = new Skills;
     
     char_rp->setWidget(char_widget);
     char_stats->setWidget(char_stats_widget);
@@ -55,6 +56,7 @@ TabWidget::TabWidget(QWidget *parent)
     tabWidget->addTab(armorscroll, tr("Armor"));
     tabWidget->addTab(spells, tr("Spells"));
     tabWidget->addTab(gear, tr("Gear"));
+    tabWidget->addTab(skills, tr("Skills"));
     tabWidget->addTab(feats, tr("Feats"));
     tabWidget->addTab(dice_widget, tr("Virtual Dice"));
     
@@ -97,6 +99,7 @@ void TabWidget::saveAll()
 			hash["feats"] = *feats->save();
 			hash["spells"] = *spells->save();
 			hash["weapon"] = *weapon->save();
+			hash["skills"] = *skills->save();
 			
 			out.setVersion(QDataStream::Qt_4_5);
     	    out << hash;
@@ -193,6 +196,7 @@ void TabWidget::loadAll()
 		feats->load(&hash["feats"]);
 		spells->load(&hash["spells"]);
 		weapon->load(&hash["weapon"]);
+		skills->load(&hash["skills"]);
     	
     }   
     already_saved = true;
