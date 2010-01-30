@@ -89,12 +89,8 @@ void Gear::add()
 void Gear::remove()
 {	
 	if(table->currentItem() == NULL)
-	{
-		QMessageBox::warning(this, tr("Nothing Selected"), tr("Please select an item to delete."));
 		return;
 		
-	}
-	
 	int current_row = table->currentRow();
 	
 	QTableWidgetItem *temp_item = table->item(table->currentRow(), 0);
@@ -106,8 +102,6 @@ void Gear::remove()
 	{
 		table->removeRow(table->currentRow());
 		num_items--;
-		
-		QMessageBox::information(this, tr("Removal Successful"), (""+creme_de_la_text+" has been removed from your gear list."));
 	}
 	
 	table->setCurrentCell(current_row, 0);
@@ -118,17 +112,12 @@ void Gear::move_up()
 {
 
 	if(table->currentItem() == NULL)
-	{
-		QMessageBox::warning(this, tr("Nothing Selected"), tr("Please select an item to move."));
 		return;
-		
-	}
 	
 	if(table->currentRow() == 0)
-	{
 		return;
-	}
 
+	int current_col = table->currentColumn();
 	int current_row = table->currentRow();
 	QTableWidgetItem *old_item;
 	QTableWidgetItem *new_item;
@@ -151,7 +140,7 @@ void Gear::move_up()
 	table->setItem(current_row-2, 2, new_item);
 	
 	table->removeRow(current_row);
-	table->setCurrentCell(current_row-2, 0);
+	table->setCurrentCell(current_row-2, current_col);
 	
 }
 
@@ -159,17 +148,12 @@ void Gear::move_down()
 {
 
 	if(table->currentItem() == NULL)
-	{
-		QMessageBox::warning(this, tr("Nothing Selected"), tr("Please select an item to move."));
 		return;
 		
-	}
-	
 	if(table->currentRow() == num_items-1)
-	{
 		return;
-	}
 
+	int current_col = table->currentColumn();
 	int current_row = table->currentRow();
 	QTableWidgetItem *old_item;
 	QTableWidgetItem *new_item;
@@ -190,7 +174,7 @@ void Gear::move_down()
 	table->setItem(current_row+2, 2, new_item);
 	
 	table->removeRow(current_row);
-	table->setCurrentCell(current_row+1, 0);
+	table->setCurrentCell(current_row+1, current_col);
 
 }
 

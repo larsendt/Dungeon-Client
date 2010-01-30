@@ -122,17 +122,12 @@ void Feats::move_up()
 {
 
 	if(table->currentItem() == NULL)
-	{
-		QMessageBox::warning(this, tr("Nothing Selected"), tr("Please select a feat to move."));
 		return;
-		
-	}
 	
 	if(table->currentRow() == 0)
-	{
 		return;
-	}
 
+	int current_col = table->currentColumn();
 	int current_row = table->currentRow();
 	QTableWidgetItem *old_item;
 	QTableWidgetItem *new_item;
@@ -155,7 +150,7 @@ void Feats::move_up()
 	table->setItem(current_row-2, 2, new_item);
 	
 	table->removeRow(current_row);
-	table->setCurrentCell(current_row-2, 0);
+	table->setCurrentCell(current_row-2, current_col);
 	
 }
 
@@ -164,17 +159,12 @@ void Feats::move_down()
 {
 
 	if(table->currentItem() == NULL)
-	{
-		QMessageBox::warning(this, tr("Nothing Selected"), tr("Please select a feat to move."));
+		return;
+
+	if(table->currentRow() == num_items-1)
 		return;
 		
-	}
-	
-	if(table->currentRow() == num_items-1)
-	{
-		return;
-	}
-
+	int current_col = table->currentColumn();
 	int current_row = table->currentRow();
 	QTableWidgetItem *old_item;
 	QTableWidgetItem *new_item;
@@ -195,7 +185,7 @@ void Feats::move_down()
 	table->setItem(current_row+2, 2, new_item);
 	
 	table->removeRow(current_row);
-	table->setCurrentCell(current_row+1, 0);
+	table->setCurrentCell(current_row+1, current_col);
 
 }
 
