@@ -21,6 +21,7 @@
 
 /* 
 	much like feats, Skills can store an arbitrary number of items
+	total used skillpts are stored in a QLabel and are added together automagically
 	
 */
 
@@ -43,7 +44,7 @@
 #include <QCheckBox>
 #include <vector>
 
-typedef std::vector<QString> C;
+typedef std::vector<int> C;
 
 class Skills : public QWidget
 {
@@ -59,7 +60,8 @@ class Skills : public QWidget
 		void remove();
 		void move_up();
 		void move_down();
-		void updateSkillPoints();
+		void updateSkillPoints(int row, int col);
+		void updateVector(int row, int col);
 	
 	private:
 		C ranks_vector;
