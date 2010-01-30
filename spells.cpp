@@ -13,8 +13,8 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    A copy of the GNU General Public License can be found in the file COPYING
+    included with this program.  Or, see <http://www.gnu.org/licenses/>.
     
     You can contact the author at dane.t.larsen@gmail.com
 */
@@ -397,26 +397,15 @@ void SpellList::add()
 void SpellList::remove()
 {	
 	if(table->currentItem() == NULL)
-	{
-		QMessageBox::warning(this, tr("Nothing Selected"), tr("Please select a spell to delete."));
 		return;
 		
-	}
-	
 	int current_row = table->currentRow();
 	
 	QTableWidgetItem *temp_item = table->item(table->currentRow(), 0);
 	QString creme_de_la_text = temp_item->text(); 
-		
-	int button = QMessageBox::question(this, tr("Confirm Removal"), ("Are you sure you want to remove "+creme_de_la_text+"?"), QMessageBox::Yes | QMessageBox::No);
 
-	if (button == QMessageBox::Yes) 
-	{
-		table->removeRow(table->currentRow());
-		num_items--;
-		
-		QMessageBox::information(this, tr("Removal Successful"), (""+creme_de_la_text+" has been removed from your spell list."));
-	}
+	table->removeRow(table->currentRow());
+	num_items--;
 	
 	table->setCurrentCell(current_row, 0);
 
@@ -426,16 +415,10 @@ void SpellList::move_up()
 {
 
 	if(table->currentItem() == NULL)
-	{
-		QMessageBox::warning(this, tr("Nothing Selected"), tr("Please select a spell to move."));
 		return;
-		
-	}
-	
+
 	if(table->currentRow() == 0)
-	{
 		return;
-	}
 
 	int current_row = table->currentRow();
 	QTableWidgetItem *old_item;
@@ -459,16 +442,10 @@ void SpellList::move_down()
 {
 
 	if(table->currentItem() == NULL)
-	{
-		QMessageBox::warning(this, tr("Nothing Selected"), tr("Please select a spell to move."));
 		return;
 		
-	}
-	
 	if(table->currentRow() == num_items-1)
-	{
 		return;
-	}
 
 	int current_row = table->currentRow();
 	QTableWidgetItem *old_item;

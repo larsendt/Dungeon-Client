@@ -117,20 +117,13 @@ void Skills::add()
 	temp_item = new QTableWidgetItem("+0");
 	table->setItem(num_items-1, 6, temp_item); 
 	
-	
-	
-	
 }
 
 void Skills::remove()
 {	
 	if(table->currentItem() == NULL)
-	{
-		QMessageBox::warning(this, tr("Nothing Selected"), tr("Please select a skill to delete."));
 		return;
-		
-	}
-	
+
 	int current_row = table->currentRow();
 	
 	QTableWidgetItem *temp_item = table->item(table->currentRow(), 1);
@@ -153,10 +146,8 @@ void Skills::remove()
 void Skills::move_up()
 {
 	if(table->currentRow() < 1)
-	{
 		return;
-	}
-
+		
 	int current_row = table->currentRow();
 	QTableWidgetItem *old_item;
 	QTableWidgetItem *new_item;

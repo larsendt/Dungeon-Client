@@ -13,8 +13,8 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    A copy of the GNU General Public License can be found in the file COPYING
+    included with this program.  Or, see <http://www.gnu.org/licenses/>.
     
     You can contact the author at dane.t.larsen@gmail.com
 */
