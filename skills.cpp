@@ -43,7 +43,8 @@ Skills::Skills(QWidget *parent)
 	button_l->addWidget(down_button);
 	button_l->addStretch(1);
 	
-	QTableWidgetItem *col1 = new QTableWidgetItem("Class Skill");
+	QTableWidgetItem *col1 = new QTableWidgetItem("CS");
+	col1->setToolTip("Class Skils require 2 skillpoints/rank");
 	QTableWidgetItem *col2 = new QTableWidgetItem("Skill Name");
 	QTableWidgetItem *col3 = new QTableWidgetItem("Ability");
 	QTableWidgetItem *col4 = new QTableWidgetItem("Skill Mod");
@@ -51,7 +52,9 @@ Skills::Skills(QWidget *parent)
 	QTableWidgetItem *col6 = new QTableWidgetItem("Ranks");
 	QTableWidgetItem *col7 = new QTableWidgetItem("Misc");
 	
+	
 	table = new QTableWidget(0, 7);
+
 	table->setMinimumSize(500, 300);
 	table->setHorizontalHeaderItem(0, col1);
 	table->setHorizontalHeaderItem(1, col2);
@@ -60,12 +63,27 @@ Skills::Skills(QWidget *parent)
 	table->setHorizontalHeaderItem(4, col5);
 	table->setHorizontalHeaderItem(5, col6);
 	table->setHorizontalHeaderItem(6, col7);
+	table->setColumnWidth(0, 30);
+	
+	QVBoxLayout *pts_l = new QVBoxLayout;
+	QLabel *asp_label = new QLabel("Pts Available");
+	available_skillpts = new QLineEdit;
+	QLabel *usp_label = new QLabel("Pts Used");
+	used_skillpts =  new QLabel("0");
+	
+	pts_l->addStretch(1);
+	pts_l->addWidget(asp_label);
+	pts_l->addWidget(available_skillpts);
+	pts_l->addWidget(usp_label);
+	pts_l->addWidget(used_skillpts);
+		
+	button_l->addLayout(pts_l);
 	
 	num_items = 0;
+	num_skillpoints = 0;
 
 	layout->addWidget(table, 0, 0, 1, 1);
 	layout->addLayout(button_l, 0, 1, 1, 1);
-	
 	setLayout(layout);
 
 }
@@ -74,6 +92,34 @@ void Skills::add()
 {
 	num_items++;
 	table->setRowCount(num_items);	
+	int tempRow = num_items-1;
+	
+	QTableWidgetItem *temp_item;
+	
+	QCheckBox *cbox = new QCheckBox;
+	cbox->setCheckState(Qt::Unchecked);
+	table->setCellWidget(num_items-1, 0, cbox);
+	table->setItem(num_items-1, 5, new QTableWidgetItem("+0"));
+	connect(table, SIGNAL(cellChanged(tempRow, 5)), this, SLOT(updateSkillPoints()));
+	
+	temp_item = new QTableWidgetItem("Skill");
+	table->setItem(num_items-1, 1, temp_item);
+	
+	temp_item = new QTableWidgetItem("Ability");
+	table->setItem(num_items-1, 2, temp_item);
+	
+	temp_item = new QTableWidgetItem("+0");
+	table->setItem(num_items-1, 3, temp_item);
+	
+	temp_item = new QTableWidgetItem("+0");
+	table->setItem(num_items-1, 4, temp_item);
+	
+	temp_item = new QTableWidgetItem("+0");
+	table->setItem(num_items-1, 6, temp_item); 
+	
+	
+	
+	
 }
 
 void Skills::remove()
@@ -87,7 +133,7 @@ void Skills::remove()
 	
 	int current_row = table->currentRow();
 	
-	QTableWidgetItem *temp_item = table->item(table->currentRow(), 0);
+	QTableWidgetItem *temp_item = table->item(table->currentRow(), 1);
 	QString creme_de_la_text = temp_item->text(); 
 		
 	int button = QMessageBox::question(this, tr("Confirm Removal"), ("Are you sure you want to remove "+creme_de_la_text+"?"), QMessageBox::Yes | QMessageBox::No);
@@ -106,13 +152,7 @@ void Skills::remove()
 
 void Skills::move_up()
 {
-
-	if(table->currentItem() == NULL)
-	{
-		return;
-	}
-	
-	if(table->currentRow() == 0)
+	if(table->currentRow() < 1)
 	{
 		return;
 	}
@@ -126,9 +166,11 @@ void Skills::move_up()
 	
 	current_row++;
 	
-	old_item = table->item(current_row, 0);
-	new_item = new QTableWidgetItem(old_item->text());
-	table->setItem(current_row-2, 0, new_item);
+	QCheckBox *old_cbox = (QCheckBox*)(table->cellWidget(current_row, 0));
+	QCheckBox *new_cbox = new QCheckBox;
+	if(old_cbox->isChecked())
+		new_cbox->setCheckState(Qt::Checked);
+	table->setCellWidget(current_row-2, 0, new_cbox);
 	
 	old_item = table->item(current_row, 1);
 	new_item = new QTableWidgetItem(old_item->text());
@@ -162,17 +204,9 @@ void Skills::move_up()
 void Skills::move_down()
 {
 
-	if(table->currentItem() == NULL)
-	{
+	if(table->currentRow() == num_items-1 || table->currentRow() == -1)
 		return;
 		
-	}
-	
-	if(table->currentRow() == num_items-1)
-	{
-		return;
-	}
-
 	int current_row = table->currentRow();
 	QTableWidgetItem *old_item;
 	QTableWidgetItem *new_item;
@@ -180,9 +214,11 @@ void Skills::move_down()
 	
 	table->insertRow(current_row+2);
 	
-	old_item = table->item(current_row, 0);
-	new_item = new QTableWidgetItem(old_item->text());
-	table->setItem(current_row+2, 0, new_item);
+	QCheckBox *old_cbox = (QCheckBox*)(table->cellWidget(current_row, 0));
+	QCheckBox *new_cbox = new QCheckBox;
+	if(old_cbox->isChecked())
+		new_cbox->setCheckState(Qt::Checked);
+	table->setCellWidget(current_row+2, 0, new_cbox);
 	
 	old_item = table->item(current_row, 1);
 	new_item = new QTableWidgetItem(old_item->text());
@@ -211,6 +247,13 @@ void Skills::move_down()
 	table->removeRow(current_row);
 	table->setCurrentCell(current_row+1, 0);
 
+}
+
+void Skills::updateSkillPoints()
+{
+	int ranks;
+	
+	QMessageBox::information(this, "Skill Points", QString::number(num_skillpoints));
 }
 
 QByteArray* Skills::save()
@@ -252,6 +295,7 @@ QByteArray* Skills::save()
 	}
 	
 	hash["num_items"] = QString::number(num_items);
+	hash["num_skillpoints"] = QString::number(num_skillpoints);
 	
 	out.setVersion(QDataStream::Qt_4_5);
     out << hash;
@@ -275,6 +319,7 @@ void Skills::load(QByteArray *parent_byte)
     else 
     {
 		num_items = hash["num_items"].toInt();
+		num_skillpoints = hash["num_skillpoints"].toInt();
 		
 		table->setRowCount(num_items);
 	
@@ -301,10 +346,7 @@ void Skills::load(QByteArray *parent_byte)
 			table->setItem(i, 5, temp_item);
 			
 			temp_item = new QTableWidgetItem(hash[QString::number((i*10)+6)]);
-			table->setItem(i, 6, temp_item);
-		
-		}
-	
+			table->setItem(i, 6, temp_item);	
+		}	
 	}
-
 }

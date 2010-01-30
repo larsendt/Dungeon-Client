@@ -40,6 +40,10 @@
 #include <QByteArray>
 #include <QTableWidget>
 #include <QTableWidgetItem>
+#include <QCheckBox>
+#include <vector>
+
+typedef std::vector<QString> C;
 
 class Skills : public QWidget
 {
@@ -55,10 +59,13 @@ class Skills : public QWidget
 		void remove();
 		void move_up();
 		void move_down();
+		void updateSkillPoints();
 	
 	private:
+		C ranks_vector;
 		QHash <QString, QString> hash;
 		int num_items;
+		int num_skillpoints;
 		
 		QPushButton *add_button;
 		QPushButton *remove_button;
@@ -66,6 +73,9 @@ class Skills : public QWidget
 		QPushButton *down_button;
 		
 		QTableWidget *table;
+		
+		QLineEdit *available_skillpts;
+		QLabel *used_skillpts;
 };
 
 
