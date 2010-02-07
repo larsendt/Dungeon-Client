@@ -122,7 +122,11 @@ void Skills::add()
 void Skills::remove()
 {	
 	if(table->currentItem() == NULL)
+	{
+		table->removeRow(table->currentRow());
+		table->setCurrentCell(table->currentRow(), 0);
 		return;
+	}
 
 	int current_row = table->currentRow();
 	
@@ -275,7 +279,7 @@ void Skills::updateVector(int row, int col)
 	ranks_vector[row] = ((table->item(row, 5))->text()).toInt();
 }
 
-QByteArray* Skills::save()
+QByteArray* Skills::return_data_bytearray()
 {
 	QByteArray *hasharray = new QByteArray;
 	QDataStream out(hasharray, QIODevice::WriteOnly);
@@ -290,8 +294,11 @@ QByteArray* Skills::save()
 		//ex: 1, 2 (second row, third item) is stored under the key 12
 		
 		
-		temp_item = table->item(i, 0);
-		hash[QString::number((i*10)+0)] = temp_item->text();
+		QCheckBox *cbox = (QCheckBox*)(table->cellWidget(i, 0));
+		if(cbox->isChecked())
+			hash[QString::number((i*10)+0)] = "1";
+		else
+			hash[QString::number((i*10)+0)] = "0";
 		
 		temp_item = table->item(i, 1);
 		hash[QString::number((i*10)+1)] = temp_item->text();
@@ -333,7 +340,7 @@ void Skills::load(QByteArray *parent_byte)
 	
 	if (hash.isEmpty()) 
     {
-    	QMessageBox::information(this, tr("No gear was loaded"), tr("The file you are attempting to open contains no saved gear."));
+    	QMessageBox::information(this, tr("No skills were loaded"), tr("The file you are attempting to open contains no saved skills."));
     } 
     else 
     {
@@ -346,8 +353,12 @@ void Skills::load(QByteArray *parent_byte)
 	
 		for(int i = 0; i < num_items; i++)
 		{
-			temp_item = new QTableWidgetItem(hash[QString::number((i*10)+0)]);
-			table->setItem(i, 0, temp_item);
+			QCheckBox *cbox = new QCheckBox;
+			if(hash[QString::number((i*10)+0)] == "1")
+				cbox->setCheckState(Qt::Checked);
+			else
+				cbox->setCheckState(Qt::Unchecked);
+			table->setCellWidget(i, 0, cbox);
 			
 			temp_item = new QTableWidgetItem(hash[QString::number((i*10)+1)]);
 			table->setItem(i, 1, temp_item);
