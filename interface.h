@@ -52,6 +52,8 @@ private slots:
 	void show_info_widget();
 	void show_contents_widget();
 	void show_license();
+	void show_connection_dialog();
+	void disconnect();
 
 private:
     void createMenu();
@@ -61,6 +63,7 @@ private:
 
     QMenu *fileMenu;
     QMenu *helpMenu;
+    QMenu *networkMenu;
     QAction *exitAction;
     QAction *openAction;
     QAction *saveAction;
@@ -68,6 +71,10 @@ private:
     QAction *contentsAction;
     QAction *aboutAction;
     QAction *licenseAction;
+    QAction *connectAction;
+    QAction *disconnectAction;
+    
+    QString dm_ip;
 };
 
 #endif

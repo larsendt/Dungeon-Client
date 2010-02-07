@@ -49,6 +49,7 @@ void Interface::createMenu()
     menuBar = new QMenuBar;
 
     fileMenu = new QMenu(tr("&File"), this);
+	networkMenu = new QMenu(tr("&Network"), this);
     helpMenu = new QMenu(tr("&Help"), this);
     openAction = fileMenu->addAction(tr("&Open"));
     saveAction = fileMenu->addAction(tr("&Save"));
@@ -58,11 +59,15 @@ void Interface::createMenu()
     contentsAction = helpMenu->addAction(tr("&Contents"));
     aboutAction = helpMenu->addAction(tr("A&bout"));
     licenseAction = helpMenu->addAction(tr("&License"));
+	connectAction = networkMenu->addAction(tr("Co&nnect"));
+	disconnectAction = networkMenu->addAction(tr("&Disconnect"));
+	disconnectAction->setEnabled(false);
     exitAction->setShortcut(tr("CTRL+Q"));
     openAction->setShortcut(tr("CTRL+O"));
     saveAction->setShortcut(tr("CTRL+S"));
     //saveAsAction->setShortcut(tr("CTRL+SHIFT+S"));
     menuBar->addMenu(fileMenu);
+    menuBar->addMenu(networkMenu);
     menuBar->addMenu(helpMenu);
     
     connect(exitAction, SIGNAL(triggered()), SLOT(close()));
@@ -72,6 +77,8 @@ void Interface::createMenu()
     connect(aboutAction, SIGNAL(triggered()), SLOT(show_info_widget()));
     connect(contentsAction, SIGNAL(triggered()), SLOT(show_contents_widget()));
     connect(licenseAction, SIGNAL(triggered()), SLOT(show_license()));
+    connect(connectAction, SIGNAL(triggered()), SLOT(show_connection_dialog()));
+    connect(disconnectAction, SIGNAL(triggered()), SLOT(disconnect()));
 }
 
 void Interface::save_to_file()
@@ -103,5 +110,23 @@ void Interface::show_contents_widget()
 	QMessageBox::about(this, tr("Coming Soon..."), tr("This feature is in progress..."));
 }
 
+void Interface::show_connection_dialog()
+{
+	bool ok;
+	QString text = QInputDialog::getText(this, tr("Connect to DM"), tr("Enter your Dungeon Master's IP address."), QLineEdit::Normal, tr("xxx.xxx.xxx.xxx"), &ok);
+	if (ok && !text.isEmpty())
+	{
+		dm_ip = text;
+		disconnectAction->setEnabled(true);
+		connectAction->setEnabled(false);
+	}
+	tabWidget->set_dm_ip(dm_ip);
+}
 
+void Interface::disconnect()
+{
+	connectAction->setEnabled(true);
+	disconnectAction->setEnabled(false);
+	tabWidget->disconnect();
+}
 
