@@ -28,6 +28,9 @@ TabWidget::TabWidget(QWidget *parent)
 	QVBoxLayout *main = new QVBoxLayout;
     tabWidget = new QTabWidget;
     
+    //set the network connection state to false
+    connected = false;
+    
     char_rp = new QScrollArea;
     char_stats = new QScrollArea;
     charprofile_scroll = new QScrollArea;
@@ -207,4 +210,14 @@ void TabWidget::update()
 	charprofile->update();
 }
 
+void TabWidget::set_dm_ip(QString ip)
+{
+	dm_ip = ip;
+	connected = true;
+}
+
+void TabWidget::disconnect()
+{
+	connected = false;
+}
 

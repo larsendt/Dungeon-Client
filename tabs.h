@@ -57,6 +57,8 @@ public:
     //void saveAllAs();
     void loadAll();
     void update();
+    void set_dm_ip(QString ip);
+    void disconnect();
     
 private slots:
 
@@ -81,7 +83,8 @@ private:
     Feats *feats;
     Skills *skills;
     
-    
+    QString dm_ip;
+	bool connected;    
 };
 
  #endif
