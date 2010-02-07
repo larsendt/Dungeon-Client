@@ -39,7 +39,7 @@ class Armor : public QWidget
 	
 	public:
 		Armor(QWidget *parent = 0);
-		QByteArray* save();
+		QByteArray* return_data_bytearray();
 		void load(QByteArray *parent_byte);
 		
 	private slots:

@@ -45,7 +45,7 @@ class CharDescWidget : public QWidget
   public:
     CharDescWidget(QWidget *parent = 0);
     QString get_name();
-    QByteArray* save();
+    QByteArray* return_data_bytearray();
 	void load(QByteArray *parent_byte);
   
   private slots:

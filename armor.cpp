@@ -179,11 +179,11 @@ Armor::Armor(QWidget *parent)
 
 }
 
-//save() saves the text of all the elements in a QHash, which then is written to a
+//return_data_bytearray() saves the text of all the elements in a QHash, which then is written to a
 //QByteArray with QDataStream.
-//save() then returns a pointer to that QByteArray
+//it then returns a pointer to that QByteArray
 
-QByteArray* Armor::save()
+QByteArray* Armor::return_data_bytearray()
 {
 	QByteArray *hasharray = new QByteArray;
 	QDataStream out(hasharray, QIODevice::WriteOnly);

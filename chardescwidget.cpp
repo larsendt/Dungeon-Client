@@ -147,7 +147,7 @@ QString CharDescWidget::get_name()
 	return character_name->text();
 }
 
-QByteArray* CharDescWidget::save()
+QByteArray* CharDescWidget::return_data_bytearray()
 {
 	QByteArray *hasharray = new QByteArray;
 	QDataStream out(hasharray, QIODevice::ReadWrite);

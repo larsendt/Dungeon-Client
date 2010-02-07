@@ -91,15 +91,15 @@ void TabWidget::saveAll()
     	    }
     	    QDataStream out(&file);
     	    
-    	    hash["char_stats"] = *char_stats_widget->save();
-			hash["char_widget"] = *char_widget->save();
-			hash["armor"] = *armor->save();
-			hash["dice"] = *dice_widget->save();
-			hash["gear"] = *gear->save();
-			hash["feats"] = *feats->save();
-			hash["spells"] = *spells->save();
-			hash["weapon"] = *weapon->save();
-			hash["skills"] = *skills->save();
+    	    hash["char_stats"] = *char_stats_widget->return_data_bytearray();
+			hash["char_widget"] = *char_widget->return_data_bytearray();
+			hash["armor"] = *armor->return_data_bytearray();
+			hash["dice"] = *dice_widget->return_data_bytearray();
+			hash["gear"] = *gear->return_data_bytearray();
+			hash["feats"] = *feats->return_data_bytearray();
+			hash["spells"] = *spells->return_data_bytearray();
+			hash["weapon"] = *weapon->return_data_bytearray();
+			hash["skills"] = *skills->return_data_bytearray();
 			
 			out.setVersion(QDataStream::Qt_4_5);
     	    out << hash;

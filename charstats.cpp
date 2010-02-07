@@ -609,7 +609,7 @@ void CharStats::fill()
 	
 }
 
-QByteArray* CharStats::save()
+QByteArray* CharStats::return_data_bytearray()
 {
 	QByteArray *hasharray = new QByteArray;
 	QDataStream out(hasharray, QIODevice::WriteOnly);

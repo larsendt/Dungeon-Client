@@ -122,7 +122,7 @@ void Diceroller::roll()
   		
 }
 
-QByteArray* Diceroller::save()
+QByteArray* Diceroller::return_data_bytearray()
 {
 	QByteArray *hasharray = new QByteArray;
 	QDataStream out(hasharray, QIODevice::WriteOnly);

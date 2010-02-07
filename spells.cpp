@@ -101,21 +101,21 @@ Spells::Spells(QWidget *parent)
 	setLayout(layout);
 }
 
-QByteArray* Spells::save()
+QByteArray* Spells::return_data_bytearray()
 {
 	QByteArray *hasharray = new QByteArray;
 	QDataStream out(hasharray, QIODevice::WriteOnly);
 	
-	hash["level0"] = *level0->save();
-	hash["level1"] = *level1->save();
-	hash["level2"] = *level2->save();
-	hash["level3"] = *level3->save();
-	hash["level4"] = *level4->save();
-	hash["level5"] = *level5->save();
-	hash["level6"] = *level6->save();
-	hash["level7"] = *level7->save();
-	hash["level8"] = *level8->save();
-	hash["level9"] = *level9->save();
+	hash["level0"] = *level0->return_data_bytearray();
+	hash["level1"] = *level1->return_data_bytearray();
+	hash["level2"] = *level2->return_data_bytearray();
+	hash["level3"] = *level3->return_data_bytearray();
+	hash["level4"] = *level4->return_data_bytearray();
+	hash["level5"] = *level5->return_data_bytearray();
+	hash["level6"] = *level6->return_data_bytearray();
+	hash["level7"] = *level7->return_data_bytearray();
+	hash["level8"] = *level8->return_data_bytearray();
+	hash["level9"] = *level9->return_data_bytearray();
 	
 	out.setVersion(QDataStream::Qt_4_5);
     out << hash;
@@ -471,7 +471,7 @@ QString SpellList::prepare()
 		return NULL;
 }
 
-QByteArray* SpellList::save()
+QByteArray* SpellList::return_data_bytearray()
 {
 	QByteArray *hasharray = new QByteArray;
 	QDataStream out(hasharray, QIODevice::WriteOnly);

@@ -44,7 +44,7 @@ class SpellList : public QWidget
 	
 	public:
 		SpellList(QWidget *parent = 0, int spell_level = 0);
-		QByteArray* save();
+		QByteArray* return_data_bytearray();
 		void load(QByteArray *parent_byte);
 		void add();
 		void remove();
@@ -69,7 +69,7 @@ class Spells : public QWidget
 	
 	public:
 		Spells(QWidget *parent = 0);
-		QByteArray* save();
+		QByteArray* return_data_bytearray();
 		void load(QByteArray *parent_byte);
 				
 	private slots:

@@ -77,7 +77,7 @@ WeaponTab::WeaponTab(QWidget *parent)
  
 }
 
-QByteArray* WeaponTab::save()
+QByteArray* WeaponTab::return_data_bytearray()
 {
 	QByteArray *hasharray = new QByteArray;
 	QDataStream out(hasharray, QIODevice::WriteOnly);
@@ -139,16 +139,16 @@ Weapon::Weapon(QWidget *parent)
 
 }
 
-QByteArray* Weapon::save()
+QByteArray* Weapon::return_data_bytearray()
 {
 	QByteArray *hasharray = new QByteArray;
 	QDataStream out(hasharray, QIODevice::WriteOnly);
 	
-	hash["weapon0"] = *weapon0->save();	
-	hash["weapon1"] = *weapon1->save();
-	hash["weapon2"] = *weapon2->save();
-	hash["weapon3"] = *weapon3->save();
-	hash["weapon4"] = *weapon4->save();
+	hash["weapon0"] = *weapon0->return_data_bytearray();	
+	hash["weapon1"] = *weapon1->return_data_bytearray();
+	hash["weapon2"] = *weapon2->return_data_bytearray();
+	hash["weapon3"] = *weapon3->return_data_bytearray();
+	hash["weapon4"] = *weapon4->return_data_bytearray();
 
 	out.setVersion(QDataStream::Qt_4_5);
 	out << hash;

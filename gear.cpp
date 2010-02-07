@@ -178,7 +178,7 @@ void Gear::move_down()
 
 }
 
-QByteArray* Gear::save()
+QByteArray* Gear::return_data_bytearray()
 {
 	QByteArray *hasharray = new QByteArray;
 	QDataStream out(hasharray, QIODevice::WriteOnly);

@@ -189,7 +189,7 @@ void Feats::move_down()
 
 }
 
-QByteArray* Feats::save()
+QByteArray* Feats::return_data_bytearray()
 {
 	QByteArray *hasharray = new QByteArray;
 	QDataStream out(hasharray, QIODevice::WriteOnly);
