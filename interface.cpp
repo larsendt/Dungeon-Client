@@ -61,6 +61,7 @@ void Interface::createMenu()
     licenseAction = helpMenu->addAction(tr("&License"));
 	connectAction = networkMenu->addAction(tr("Co&nnect"));
 	disconnectAction = networkMenu->addAction(tr("&Disconnect"));
+	ipAction = networkMenu->addAction(tr("Your &IP Address"));
 	disconnectAction->setEnabled(false);
     exitAction->setShortcut(tr("CTRL+Q"));
     openAction->setShortcut(tr("CTRL+O"));
@@ -79,6 +80,7 @@ void Interface::createMenu()
     connect(licenseAction, SIGNAL(triggered()), SLOT(show_license()));
     connect(connectAction, SIGNAL(triggered()), SLOT(show_connection_dialog()));
     connect(disconnectAction, SIGNAL(triggered()), SLOT(disconnect()));
+    connect(ipAction, SIGNAL(triggered()), SLOT(show_my_ip()));
 }
 
 void Interface::save_to_file()
@@ -128,5 +130,11 @@ void Interface::disconnect()
 	connectAction->setEnabled(true);
 	disconnectAction->setEnabled(false);
 	tabWidget->disconnect();
+}
+
+void Interface::show_my_ip()
+{
+	QString myip = "xxx.xxx.xxx.xxx";
+	QMessageBox::information(this, "IP Address", "Your IP Address is: "+myip);
 }
 

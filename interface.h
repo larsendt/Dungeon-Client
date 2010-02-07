@@ -30,6 +30,7 @@
 #include <QMainWindow>
 #include <QWidget>
 #include <QDataStream>
+#include <QMessageBox>
 #include "tabs.h"
 
 
@@ -54,6 +55,7 @@ private slots:
 	void show_license();
 	void show_connection_dialog();
 	void disconnect();
+	void show_my_ip();
 
 private:
     void createMenu();
@@ -73,6 +75,7 @@ private:
     QAction *licenseAction;
     QAction *connectAction;
     QAction *disconnectAction;
+    QAction *ipAction;
     
     QString dm_ip;
 };
