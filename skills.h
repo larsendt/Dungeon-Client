@@ -61,13 +61,12 @@ class Skills : public QWidget
 		void move_up();
 		void move_down();
 		void updateSkillPoints(int row, int col);
-		void updateVector(int row, int col);
+		void checkStateChanged(int row, int col);
 	
 	private:
 		C ranks_vector;
 		QHash <QString, QString> hash;
 		int num_items;
-		int num_skillpoints;
 		
 		QPushButton *add_button;
 		QPushButton *remove_button;
