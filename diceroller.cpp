@@ -154,3 +154,8 @@ void Diceroller::clear()
 	total->setText("0");
 	totalint = 0;
 }
+
+void Diceroller::set_dm_ip(QString ip)
+{
+	dm_ip = ip;
+}

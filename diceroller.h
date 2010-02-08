@@ -45,6 +45,7 @@ class Diceroller : public QWidget
     Diceroller(QWidget *parent = 0);
     QByteArray* return_data_bytearray();
     void load(QByteArray *parent_byte);
+    void set_dm_ip(QString ip);
   
   private slots:
   	void roll();
@@ -66,6 +67,8 @@ class Diceroller : public QWidget
   	QPushButton *roll_button;
   	QTextEdit *notes;
   	QPushButton *clear_notes;
+  	
+  	QString dm_ip;
 
   	
   	
