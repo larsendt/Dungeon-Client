@@ -33,13 +33,11 @@ TabWidget::TabWidget(QWidget *parent)
     
     char_rp = new QScrollArea;
     char_stats = new QScrollArea;
-    charprofile_scroll = new QScrollArea;
     QScrollArea *armorscroll = new QScrollArea;
     
     dice_widget = new Diceroller;
     char_widget = new CharDescWidget;
     char_stats_widget = new CharStats;
-    charprofile = new CharProfile(this, char_widget);
     weapon = new Weapon;
     armor = new Armor;
     spells = new Spells;
@@ -49,10 +47,8 @@ TabWidget::TabWidget(QWidget *parent)
     
     char_rp->setWidget(char_widget);
     char_stats->setWidget(char_stats_widget);
-    charprofile_scroll->setWidget(charprofile);
     armorscroll->setWidget(armor);
     
-    //tabWidget->addTab(charprofile_scroll, tr("Character Profile"));
     tabWidget->addTab(char_rp, tr("Character Info"));
     tabWidget->addTab(char_stats, tr("Character Stats"));
     tabWidget->addTab(weapon, tr("Weaponry"));
@@ -63,7 +59,7 @@ TabWidget::TabWidget(QWidget *parent)
     tabWidget->addTab(feats, tr("Feats"));
     tabWidget->addTab(dice_widget, tr("Virtual Dice"));
     
-    //connect(this, SIGNAL(currentChanged(QWidget*)), SLOT(updateProfile()));
+    connect(this, SIGNAL(currentChanged(int)), SLOT(update(int)));
 	
 	main->addWidget(tabWidget);
 	setLayout(main);
@@ -205,15 +201,16 @@ void TabWidget::loadAll()
     already_saved = true;
 }
 
-void TabWidget::update()
+void TabWidget::update(int index)
 {
-	charprofile->update();
+	QByteArray *temp_array = char_widget->return_data_bytearray();
 }
 
 void TabWidget::set_dm_ip(QString ip)
 {
 	dm_ip = ip;
 	connected = true;
+	dice_widget->set_dm_ip(dm_ip);
 }
 
 void TabWidget::disconnect()

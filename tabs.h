@@ -30,7 +30,6 @@
 #include "chardescwidget.h"
 #include "diceroller.h"
 #include "charstats.h"
-#include "charprofile.h"
 #include "weapon.h"
 #include "armor.h"
 #include "spells.h"
@@ -61,6 +60,7 @@ public:
     void disconnect();
     
 private slots:
+	void update(int index);
 
 private:
 	bool already_saved;
@@ -75,7 +75,6 @@ private:
     CharDescWidget *char_widget;
     Diceroller *dice_widget;
     CharStats *char_stats_widget;
-    CharProfile *charprofile;
     Weapon *weapon;
     Armor *armor;
     Spells *spells;
