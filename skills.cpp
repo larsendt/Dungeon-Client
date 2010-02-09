@@ -51,8 +51,9 @@ Skills::Skills(QWidget *parent)
 	QTableWidgetItem *col6 = new QTableWidgetItem("Ranks");
 	QTableWidgetItem *col7 = new QTableWidgetItem("Misc");
 	
-	
 	table = new QTableWidget(0, 7);
+	connect(table, SIGNAL(cellChanged(int, int)), this, SLOT(updateSkillPoints(int, int)));
+	connect(table, SIGNAL(cellClicked(int, int)), this, SLOT(updateSkillPoints(int, int)));
 
 	table->setMinimumSize(500, 300);
 	table->setHorizontalHeaderItem(0, col1);
@@ -92,15 +93,11 @@ void Skills::add()
 	table->setRowCount(num_items);	
 	
 	QTableWidgetItem *temp_item;
-	
-	ranks_vector.push_back(0);
+
 	QCheckBox *cbox = new QCheckBox;
 	cbox->setCheckState(Qt::Checked);
 	table->setCellWidget(num_items-1, 0, cbox);
 	table->setItem(num_items-1, 5, new QTableWidgetItem("0"));
-	connect(table, SIGNAL(cellChanged(int, int)), this, SLOT(updateSkillPoints(int, int)));
-	connect(table, SIGNAL(cellClicked(int, int)), this, SLOT(updateSkillPoints(int, int)));
-	connect(table, SIGNAL(cellChanged(int, int)), this, SLOT(checkStateChanged(int, int)));
 	
 	temp_item = new QTableWidgetItem("Skill");
 	table->setItem(num_items-1, 1, temp_item);
@@ -139,9 +136,7 @@ void Skills::remove()
 		table->removeRow(table->currentRow());
 		num_items--;
 		int ranks = (used_skillpts->text()).toInt();
-		ranks -= ranks_vector[current_row];
 		used_skillpts->setText(QString::number(ranks));
-		ranks_vector.erase(ranks_vector.begin()+(current_row+1));
 	}
 	
 	table->setCurrentCell(current_row, 0);
@@ -157,9 +152,6 @@ void Skills::move_up()
 	QTableWidgetItem *old_item;
 	QTableWidgetItem *new_item;
 	QString current_text;
-	int tempnum = ranks_vector[current_row];
-	ranks_vector[current_row] = ranks_vector[current_row-1];
-	ranks_vector[current_row-1] = tempnum;
 	
 	table->insertRow(current_row-1);
 	
@@ -209,10 +201,7 @@ void Skills::move_down()
 		
 	int current_row = table->currentRow();
 	QString current_text;
-	int tempnum = ranks_vector[current_row];
-	ranks_vector[current_row] = ranks_vector[current_row+1];
-	ranks_vector[current_row+1] = tempnum;
-	
+
 	QCheckBox *old_cbox = (QCheckBox*)(table->cellWidget(current_row, 0));
 	QCheckBox *new_cbox = new QCheckBox;
 	if(old_cbox->isChecked())
@@ -251,50 +240,26 @@ void Skills::move_down()
 }
 
 void Skills::updateSkillPoints(int row, int col)
-{
+{		
 	if(col != 5)
 		return;
-	
-	int old_ranks = ranks_vector[row];
-	int new_ranks = ((table->item(row, 5))->text()).toInt();
-	int total_skillpts = used_skillpts->text().toInt();
-	
-	QCheckBox *temp_cbox = (QCheckBox*)(table->cellWidget(row, 0));
-	
-	if(temp_cbox->isChecked())
-	{
-		total_skillpts -= old_ranks;
-		total_skillpts += new_ranks;
-	}
-	else
-	{
-		total_skillpts -= 2*old_ranks;
-		total_skillpts += 2*new_ranks;
-	}
-	
-	used_skillpts->setText(QString::number(total_skillpts));
-	
-	ranks_vector[row] = new_ranks;
-}
-
-void Skills::checkStateChanged(int row, int col)
-{
-	if(col != 0)
-		return;
 		
-	int old_ranks = ranks_vector[row];
-	int new_ranks = ((table->item(row, 5))->text()).toInt();
-	int total_skillpts = used_skillpts->text().toInt();
-	
-	QMessageBox::information(this, "Check State Changed", "state changed");
-	
-	total_skillpts -= old_ranks;
-	total_skillpts += 2*new_ranks;
-	
-	used_skillpts->setText(QString::number(total_skillpts));
+	QCheckBox *temp_cbox;
+	int total_points = 0;
 
-}
+	for(int i = 0; i < num_items; i++)
+	{
+		temp_cbox = (QCheckBox*)(table->cellWidget(i, 0));
+		if(temp_cbox->isChecked())
+			total_points += table->item(i, 5)->text().toInt();
 	
+		else
+			total_points += 2*(table->item(i, 5)->text().toInt());
+			
+	}
+	
+	used_skillpts->setText(QString::number(total_points));
+}	
 
 QByteArray* Skills::return_data_bytearray()
 {
@@ -332,8 +297,6 @@ QByteArray* Skills::return_data_bytearray()
 		temp_item = table->item(i, 5);
 		hash[QString::number((i*10)+5)] = temp_item->text();
 		
-		hash["ranks_vector_"+QString::number(ranks_vector[i])] = QString::number(ranks_vector[i]);
-		
 		temp_item = table->item(i, 6);
 		hash[QString::number((i*10)+6)] = temp_item->text();
 	
@@ -355,8 +318,10 @@ void Skills::load(QByteArray *parent_byte)
 	QDataStream in(parent_byte, QIODevice::ReadWrite);
 	in >> hash;
 	
+	disconnect(table, SIGNAL(cellChanged(int, int)), this, SLOT(updateSkillPoints(int, int)));
+	disconnect(table, SIGNAL(cellClicked(int, int)), this, SLOT(updateSkillPoints(int, int)));
+
 	table->clearContents();
-	ranks_vector.clear();
 	table->setRowCount(0);
 	used_skillpts->setText("0");
 		
@@ -382,8 +347,7 @@ void Skills::load(QByteArray *parent_byte)
 			else
 				cbox->setCheckState(Qt::Unchecked);
 			table->setCellWidget(i, 0, cbox);
-			connect(table, SIGNAL(cellChanged(int, int)), this, SLOT(checkStateChanged(int, int)));
-			
+						
 			temp_item = new QTableWidgetItem(hash[QString::number((i*10)+1)]);
 			table->setItem(i, 1, temp_item);
 			
@@ -398,13 +362,12 @@ void Skills::load(QByteArray *parent_byte)
 			
 			temp_item = new QTableWidgetItem(hash[QString::number((i*10)+5)]);
 			table->setItem(i, 5, temp_item);
-			ranks_vector.push_back(temp_item->text().toInt());
-			updateSkillPoints(i, 5);
-			connect(table, SIGNAL(cellChanged(int, int)), this, SLOT(updateSkillPoints(int, int)));
-			connect(table, SIGNAL(cellClicked(int, int)), this, SLOT(updateSkillPoints(int, int)));
 			
 			temp_item = new QTableWidgetItem(hash[QString::number((i*10)+6)]);
 			table->setItem(i, 6, temp_item);	
 		}	
+		connect(table, SIGNAL(cellChanged(int, int)), this, SLOT(updateSkillPoints(int, int)));
+		connect(table, SIGNAL(cellClicked(int, int)), this, SLOT(updateSkillPoints(int, int)));
+
 	}
 }

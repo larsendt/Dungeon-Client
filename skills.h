@@ -42,9 +42,6 @@
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <QCheckBox>
-#include <vector>
-
-typedef std::vector<int> C;
 
 class Skills : public QWidget
 {
@@ -61,10 +58,8 @@ class Skills : public QWidget
 		void move_up();
 		void move_down();
 		void updateSkillPoints(int row, int col);
-		void checkStateChanged(int row, int col);
 	
 	private:
-		C ranks_vector;
 		QHash <QString, QString> hash;
 		int num_items;
 		
