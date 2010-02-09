@@ -24,7 +24,7 @@
 
 #include "interface.h"
 
-QString DCLIENTVERSION = "0.5.07022010";
+QString DCLIENTVERSION = "0.5.09022010";
 QString ABOUT = "Author: Dane Larsen\ndane.t.larsen@gmail.com\n\nAbout: \nDungeon Client is an application geared towards simplicity of D&D character setup, which typically takes quite a long time, and can detract from the experience of a onetime campaign. \n\nThis is accomplished by a moderate amount of automation, but not enough to remove control from the player/DM. \n\nThis automation allows for speedy character creation by removing the need to constantly refer to the Player's Handbook.\n\nBut remember: There is nothing like rolling two handfulls of d6's.";
 QString LICENSE = "Dungeon Client - An application geared towards making D&D character setup and use easier.\n\nCopyright (C) 2010 Dane T Larsen \n\nThis program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details. \n\nYou should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.\n\nYou can contact the author at dane.t.larsen@gmail.com";
 
