@@ -34,8 +34,7 @@ Interface::Interface()
     createMenu();
     
 	tabWidget = new TabWidget;
-	//connect(tabWidget, SIGNAL(currentChanged(0)), this, SLOT(update()));
-
+	
 	setMenuBar(menuBar);
 
 	setCentralWidget(tabWidget);
@@ -56,9 +55,11 @@ void Interface::createMenu()
     fileMenu->addSeparator();
     //saveAsAction = fileMenu->addAction(tr("S&ave As"));
     exitAction = fileMenu->addAction(tr("&Quit"));
-    contentsAction = helpMenu->addAction(tr("&Contents"));
-    aboutAction = helpMenu->addAction(tr("A&bout"));
-    licenseAction = helpMenu->addAction(tr("&License"));
+    contentsAction = helpMenu->addAction(tr("Contents"));
+    licenseAction = helpMenu->addAction(tr("License"));
+    aboutAction = helpMenu->addAction(tr("About"));
+    helpMenu->addSeparator();
+    aboutQtAction = helpMenu->addAction(tr("About Qt"));
 	connectAction = networkMenu->addAction(tr("Co&nnect"));
 	disconnectAction = networkMenu->addAction(tr("&Disconnect"));
 	ipAction = networkMenu->addAction(tr("Your &IP Address"));
@@ -81,6 +82,7 @@ void Interface::createMenu()
     connect(connectAction, SIGNAL(triggered()), SLOT(show_connection_dialog()));
     connect(disconnectAction, SIGNAL(triggered()), SLOT(disconnect()));
     connect(ipAction, SIGNAL(triggered()), SLOT(show_my_ip()));
+    connect(aboutQtAction, SIGNAL(triggered()), this, SLOT(aboutQt()));
 }
 
 void Interface::save_to_file()
@@ -136,5 +138,10 @@ void Interface::show_my_ip()
 {
 	QString myip = "xxx.xxx.xxx.xxx";
 	QMessageBox::information(this, "IP Address", "Your IP Address is: "+myip);
+}
+
+void Interface::aboutQt()
+{
+	QMessageBox::aboutQt(this);
 }
 

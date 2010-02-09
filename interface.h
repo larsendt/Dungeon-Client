@@ -56,6 +56,7 @@ private slots:
 	void show_connection_dialog();
 	void disconnect();
 	void show_my_ip();
+	void aboutQt();
 
 private:
     void createMenu();
@@ -76,6 +77,7 @@ private:
     QAction *connectAction;
     QAction *disconnectAction;
     QAction *ipAction;
+    QAction *aboutQtAction;
     
     QString dm_ip;
 };
