@@ -85,25 +85,26 @@ void Interface::createMenu()
     connect(aboutQtAction, SIGNAL(triggered()), this, SLOT(aboutQt()));
 }
 
+//tell tabs to save
 void Interface::save_to_file()
 {
-
-	tabWidget->saveAll();
-    	
+	tabWidget->saveAll();	
 }
 
+//tell tabs to load
+//tabs handles all of the file ops
 void Interface::load_from_file()
 {
-    tabWidget->loadAll();
-    
+    tabWidget->loadAll();   
 }
 
-
+//info is at the top of this file
 void Interface::show_info_widget()
 {
 	QMessageBox::about(this, tr("About Dungeon Client"), ("Using Dungeon Client Version: "+DCLIENTVERSION+"\n\n"+ABOUT));
 }
 
+//ditto
 void Interface::show_license()
 {
 	QMessageBox::about(this, tr("License"), LICENSE);
@@ -114,16 +115,19 @@ void Interface::show_contents_widget()
 	QMessageBox::about(this, tr("Coming Soon..."), tr("This feature is in progress..."));
 }
 
+
 void Interface::show_connection_dialog()
 {
-	bool ok;
-	QString text = QInputDialog::getText(this, tr("Connect to DM"), tr("Enter your Dungeon Master's IP address."), QLineEdit::Normal, tr("xxx.xxx.xxx.xxx"), &ok);
+	bool ok; //will be false if user clicks cancel, true if user clicks ok
+	QString text = QInputDialog::getText(this, tr("Connect to DM"), tr("Enter your Dungeon Master's IP address."), QLineEdit::Normal, tr("xxx.xxx.xxx.xxx"), &ok); 
 	if (ok && !text.isEmpty())
 	{
 		dm_ip = text;
 		disconnectAction->setEnabled(true);
 		connectAction->setEnabled(false);
 	}
+	
+	//pass the ip address on to the tab widget
 	tabWidget->set_dm_ip(dm_ip);
 }
 
@@ -131,11 +135,14 @@ void Interface::disconnect()
 {
 	connectAction->setEnabled(true);
 	disconnectAction->setEnabled(false);
+	
+	//tell tab widget to disconnect
 	tabWidget->disconnect();
 }
 
 void Interface::show_my_ip()
 {
+	//need to figure this one out
 	QString myip = "xxx.xxx.xxx.xxx";
 	QMessageBox::information(this, "IP Address", "Your IP Address is: "+myip);
 }
