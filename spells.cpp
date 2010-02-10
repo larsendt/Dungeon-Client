@@ -106,6 +106,7 @@ QByteArray* Spells::return_data_bytearray()
 	QByteArray *hasharray = new QByteArray;
 	QDataStream out(hasharray, QIODevice::WriteOnly);
 	
+	//hash all the bytearrays returned by the spell tabs
 	hash["level0"] = *level0->return_data_bytearray();
 	hash["level1"] = *level1->return_data_bytearray();
 	hash["level2"] = *level2->return_data_bytearray();
@@ -117,9 +118,29 @@ QByteArray* Spells::return_data_bytearray()
 	hash["level8"] = *level8->return_data_bytearray();
 	hash["level9"] = *level9->return_data_bytearray();
 	
+	//save the prepared spells
+	QByteArray *prep_array = new QByteArray;
+	QDataStream prep_stream(prep_array, QIODevice::WriteOnly);
+	
+	int i = 0;
+	for(i; activeSpells->item(i) != NULL; i++)
+	{
+		prep_hash["prep"+QString::number(i)] = (activeSpells->item(i))->text();
+	}
+	
+	//write i to the hash, for for the load() function
+	prep_hash["num_prepped"] = QString::number(i);
+	
+	//write prep_array to the main hash
+	prep_stream.setVersion(QDataStream::Qt_4_5);
+	prep_stream << prep_hash;
+	hash["prepared_spells"] = *prep_array;
+	
+	//write the main hash to the hasharray
 	out.setVersion(QDataStream::Qt_4_5);
     out << hash;
     
+
     return hasharray;
 }
 
@@ -128,6 +149,7 @@ void Spells::load(QByteArray *parent_byte)
 	QDataStream in(parent_byte, QIODevice::ReadWrite);
 	in >> hash;
 	
+	//send the bytearrays to each spell tab
 	level0->load(&hash["level0"]);
 	level1->load(&hash["level1"]);
 	level2->load(&hash["level2"]);
@@ -138,6 +160,25 @@ void Spells::load(QByteArray *parent_byte)
 	level7->load(&hash["level7"]);
 	level8->load(&hash["level8"]);
 	level9->load(&hash["level9"]);
+
+	//extract the prepared spells bytearray	
+	QByteArray *prep_array = &hash["prepared_spells"];
+	
+	//unwrap the bytearray into a prep_hash with a datastream
+	QDataStream prep_stream(prep_array, QIODevice::ReadOnly);
+	prep_stream >> prep_hash;
+	
+	//get the number of saved prepped spells
+	int num_prepped_spells = prep_hash["num_prepped"].toInt();
+	
+	//clear the activeSpells list widget for loading
+	activeSpells->clear();
+	
+	//load the prepped spells into activeSpells
+	for(int i = 0; i < num_prepped_spells; i++)
+	{
+		activeSpells->addItem(prep_hash["prep"+QString::number(i)]);
+	}	
 }
 
 void Spells::add()

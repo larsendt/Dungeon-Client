@@ -84,6 +84,7 @@ class Spells : public QWidget
 	
 	private:
 		QHash <QString, QByteArray> hash;
+		QHash <QString, QString> prep_hash;
 		QPushButton *add_button;
 		QPushButton *remove_button;
 		QPushButton *up_button;
