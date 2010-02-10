@@ -39,8 +39,6 @@ Interface::Interface()
 
 	setCentralWidget(tabWidget);
     setWindowTitle(tr("Dungeon Client"));
-
-
 }
 
 void Interface::createMenu()
