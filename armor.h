@@ -46,7 +46,8 @@ class Armor : public QWidget
 	
 	private:
 		int WIDTH;
-		QHash <QString, QString> hash;
+		QHash <QString, QString> hash; //for saving information
+		
 		QLabel *armor_name_label;
 		QLineEdit *armor_name;
 		QLabel *armor_type_label;

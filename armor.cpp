@@ -24,19 +24,22 @@
 Armor::Armor(QWidget *parent)
 {
 	QVBoxLayout *layout = new QVBoxLayout; //main layout of armor widget
-	QGridLayout *armor_l = new QGridLayout;
+	//sub layouts for each piece of armor
+	QGridLayout *armor_l = new QGridLayout; 
 	QHBoxLayout *proItem1_1 = new QHBoxLayout;
 	QHBoxLayout *proItem1_2 = new QHBoxLayout;
 	QHBoxLayout *proItem2_1 = new QHBoxLayout;
 	QHBoxLayout *proItem2_2 = new QHBoxLayout;
+	//blank labels for spacing (bad practice, I know, I know. Easter eggs, right?)
 	QLabel *zidane = new QLabel("  ");
 	zidane->setToolTip("Zidane");
 	QLabel *squall = new QLabel("  ");
 	squall->setToolTip("Squall");
 	QLabel *cloud = new QLabel("  ");
 	cloud->setToolTip("Cloud");
-	WIDTH = 50;
+	WIDTH = 50; //convenient for setting lineEdit widths
 	
+	//make the heap do some work
 	armor_name_label = new QLabel("<b>Armor:</b> ");
 	armor_name = new QLineEdit;
 	armor_name->setMaximumWidth(300);
@@ -170,7 +173,7 @@ Armor::Armor(QWidget *parent)
 	layout->addLayout(armor_l, Qt::AlignLeft);
 	layout->addLayout(proItem1_1);
 	layout->addLayout(proItem1_2);
-	layout->addWidget(cloud);
+	layout->addWidget(cloud); //cloud is purely for spacing (and easter eggs!)
 	layout->addLayout(proItem2_1);
 	layout->addLayout(proItem2_2);
 	layout->addStretch(1);

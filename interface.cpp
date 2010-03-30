@@ -45,19 +45,24 @@ void Interface::createMenu()
 {
     menuBar = new QMenuBar;
 
+
+	//construct the menus
     fileMenu = new QMenu(tr("&File"), this);
 	networkMenu = new QMenu(tr("&Network"), this);
     helpMenu = new QMenu(tr("&Help"), this);
+    
     openAction = fileMenu->addAction(tr("&Open"));
     saveAction = fileMenu->addAction(tr("&Save"));
     fileMenu->addSeparator();
     //saveAsAction = fileMenu->addAction(tr("S&ave As"));
     exitAction = fileMenu->addAction(tr("&Quit"));
+    
     contentsAction = helpMenu->addAction(tr("Contents"));
     licenseAction = helpMenu->addAction(tr("License"));
     aboutAction = helpMenu->addAction(tr("About"));
     helpMenu->addSeparator();
     aboutQtAction = helpMenu->addAction(tr("About Qt"));
+    
 	connectAction = networkMenu->addAction(tr("Co&nnect"));
 	disconnectAction = networkMenu->addAction(tr("&Disconnect"));
 	ipAction = networkMenu->addAction(tr("Your &IP Address"));
@@ -140,11 +145,12 @@ void Interface::disconnect()
 
 void Interface::show_my_ip()
 {
-	//need to figure this one out
+	//need to figure this one out, also will be useful for obtaining dm_ip
 	QString myip = "xxx.xxx.xxx.xxx";
 	QMessageBox::information(this, "IP Address", "Your IP Address is: "+myip);
 }
 
+//give credit where credit is due (Thanks Nokia for FOSSing Qt!)
 void Interface::aboutQt()
 {
 	QMessageBox::aboutQt(this);

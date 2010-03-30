@@ -20,8 +20,7 @@
 */
 
 /*
-	save-as is currently disabled until I can figure out how to detect that a user has 
-	cancelled an "open" or "save" operation
+	save-as is currently disabled
 */
 
 #ifndef DIALOG_H
@@ -79,7 +78,7 @@ private:
     QAction *ipAction;
     QAction *aboutQtAction;
     
-    QString dm_ip;
+    QString dm_ip; //will eventually be the Dungeon Master's ip address, when I can figure out how to obtain such info
 };
 
 #endif
