@@ -10,10 +10,16 @@ Dane Larsen
 Email
 dane.t.larsen@gmail.com
 
-About
-Dungeon Client is an application geared towards simplicity of D&D character setup, which typically takes quite a long time, and can detract from the experience of a onetime campaign. \n\nThis is accomplished by a moderate amount of automation, but not enough to remove control from the player/DM. \n\nThis automation allows for speedy character creation by removing the need to constantly refer to the Player's Handbook.\n\nBut remember: There is nothing like rolling two handfulls of d6's.
+*******************************************************************
+*                           About                                 *
+*******************************************************************
+Dungeon Client is an application geared towards simplicity of D&D character setup, which typically takes quite a long time, and can detract from the experience of a onetime campaign. This is accomplished by a moderate amount of automation, but not enough to remove control from the player/DM. This automation allows for speedy character creation by removing the need to constantly refer to the Player's Handbook.But remember: There is nothing like rolling two handfulls of d6's.
 
-License
+
+*******************************************************************
+*                           License                               *
+*******************************************************************
+
 Dungeon Client - An application geared towards making D&D character 
 setup and use easier.
 Copyright (C) 2010 Dane T Larsen 
@@ -28,8 +34,21 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+A copy of the GNU General Public License can be found in the file
+COPYING, distributed with the source of this program, or it can be
+read at: http://www.gnu.org/licenses/gpl.html
     
 You can contact the author at dane.t.larsen@gmail.com
+
+********************************************************************
+********************************************************************
+
+Note about the general structure of the program:
+
+The Interface widget contains the Tabs widget which in turn contains
+each of the widgets that go in the tabs. When load is called
+the names is gotten from the user via Interface, and given to Tabs.
+Tabs opens the file and gets the relevant QByteArrays containing hashes
+Tabs then gives each tab its respective QByteArray, and the tab does the 
+rest of the processing. Save works the same, but in reverse.
 
