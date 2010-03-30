@@ -49,15 +49,21 @@ TabWidget::TabWidget(QWidget *parent)
     char_stats->setWidget(char_stats_widget);
     armorscroll->setWidget(armor);
     
+    QIcon weapon_icon("ico/weapons.png");
+    QIcon armor_icon("ico/armor.png");   
+    QIcon spells_icon("ico/spells.png");
+    QIcon gear_icon("ico/gear.png");
+    QIcon dice_icon("ico/dice.png");
+    QIcon skills_icon("ico/skills.png");
     tabWidget->addTab(char_rp, tr("Character Info"));
     tabWidget->addTab(char_stats, tr("Character Stats"));
-    tabWidget->addTab(weapon, tr("Weaponry"));
-    tabWidget->addTab(armorscroll, tr("Armor"));
-    tabWidget->addTab(spells, tr("Spells"));
-    tabWidget->addTab(gear, tr("Gear"));
-    tabWidget->addTab(skills, tr("Skills"));
+    tabWidget->addTab(weapon, weapon_icon, tr("Weaponry"));
+    tabWidget->addTab(armorscroll, armor_icon, tr("Armor"));
+    tabWidget->addTab(spells, spells_icon, tr("Spells"));
+    tabWidget->addTab(gear, gear_icon, tr("Gear"));
+    tabWidget->addTab(skills, skills_icon, tr("Skills"));
     tabWidget->addTab(feats, tr("Feats"));
-    tabWidget->addTab(dice_widget, tr("Virtual Dice"));
+    tabWidget->addTab(dice_widget, dice_icon, tr("Virtual Dice"));
     
     connect(this, SIGNAL(currentChanged(int)), SLOT(update(int)));
 	
@@ -203,7 +209,7 @@ void TabWidget::loadAll()
 
 void TabWidget::update(int index)
 {
-	QByteArray *temp_array = char_widget->return_data_bytearray();
+	//QByteArray *temp_array = char_widget->return_data_bytearray();
 }
 
 void TabWidget::set_dm_ip(QString ip)
