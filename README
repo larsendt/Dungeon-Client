@@ -47,7 +47,7 @@ Note about the general structure of the program:
 
 The Interface widget contains the Tabs widget which in turn contains
 each of the widgets that go in the tabs. When load is called
-the names is gotten from the user via Interface, and given to Tabs.
+the filename is gotten from the user via Interface, and given to Tabs.
 Tabs opens the file and gets the relevant QByteArrays containing hashes
 Tabs then gives each tab its respective QByteArray, and the tab does the 
 rest of the processing. Save works the same, but in reverse.
